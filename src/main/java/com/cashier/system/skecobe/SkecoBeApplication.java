@@ -9,5 +9,4 @@ public class SkecoBeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SkecoBeApplication.class, args);
 	}
-
 }
