@@ -1,15 +1,13 @@
 package com.cashier.system.skecobe.controllers;
 
-import com.cashier.system.skecobe.requests.CreateProductRequest;
-import com.cashier.system.skecobe.requests.UpdateProductRequest;
-import com.cashier.system.skecobe.responses.ProductResponse;
+import com.cashier.system.skecobe.requests.product.CreateProductRequest;
+import com.cashier.system.skecobe.requests.product.UpdateProductRequest;
 import com.cashier.system.skecobe.responses.ResponseHandler;
 import com.cashier.system.skecobe.services.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -32,15 +30,15 @@ public class ProductController {
         return ResponseHandler.responseWithoutMessage(productResponse, HttpStatus.OK);
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<Object> create(@ModelAttribute CreateProductRequest productRequest) throws IOException {
+    @PostMapping
+    public ResponseEntity<Object> create(@RequestBody CreateProductRequest productRequest) throws IOException {
         var productResponse = productService.save(productRequest);
         return ResponseHandler.generateResponse(
                 "Product created", productResponse, HttpStatus.CREATED
         );
     }
 
-    @PostMapping("/update/{productId}")
+    @PutMapping("/{productId}")
     public ResponseEntity<Object> update(
             @PathVariable Long productId, @RequestBody UpdateProductRequest productRequest) {
         var productResponse = productService.update(productId, productRequest);
