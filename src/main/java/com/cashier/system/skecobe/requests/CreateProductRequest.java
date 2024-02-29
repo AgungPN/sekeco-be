@@ -32,7 +32,6 @@ public class CreateProductRequest {
     @Min(0)
     private Long price;
 
-
     @Min(0)
     private Integer stock;
 }

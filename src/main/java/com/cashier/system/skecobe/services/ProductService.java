@@ -30,6 +30,13 @@ public class ProductService {
                 .orElseThrow(() -> new NotFoundException("Product"));
     }
 
+    public ProductResponse findByBarcode(String barcode) {
+        return productRepository.findByBarcode(barcode)
+                .map(ProductResponse::convertToResponse)
+                .orElseThrow(() -> new NotFoundException("Product"));
+    }
+
+
     public ProductResponse save(CreateProductRequest createProductRequest) throws IOException {
         validationService.validate(createProductRequest);
 
