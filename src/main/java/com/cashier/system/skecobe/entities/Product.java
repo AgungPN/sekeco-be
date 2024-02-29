@@ -16,22 +16,23 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private Long id;
+    private Long productId;
+
+    @Column(nullable = false, unique = true)
+    private String barcode;
 
     @Column(nullable = false)
     private String name;
 
-    private String description;
+    private String brand;
+
+    private Long profitSharingAmount;
 
     @Column(nullable = false)
     private Long price;
 
-    private Long profitSharingPercentage;
-    private Long profitSharingAmount;
-
+    @Column(nullable = false)
     private Integer stock;
-
-    private String image;
 
     private LocalDate createdAt;
     private LocalDate lastModifiedAt;

@@ -19,7 +19,7 @@ public class ProductService {
     private ProductRepository productRepository;
     private ValidationService validationService;
 
-    public List<ProductResponse> getList(String search) { // TODO: feature to search product by name
+    public List<ProductResponse> getList() {
         var products = productRepository.findAll();
         return products.stream().map(ProductResponse::convertToResponse).toList();
     }
@@ -31,18 +31,15 @@ public class ProductService {
     }
 
     public ProductResponse save(CreateProductRequest createProductRequest) throws IOException {
-        String imageFiles = Storage.saveFileToStorage(createProductRequest.getImage(), "images/products");
-
         validationService.validate(createProductRequest);
 
         Product product = Product.builder()
+                .barcode(createProductRequest.getBarcode())
                 .name(createProductRequest.getName())
-                .description(createProductRequest.getDescription())
-                .price(createProductRequest.getPrice())
-                .profitSharingPercentage(createProductRequest.getProfitSharingPercentage())
+                .brand(createProductRequest.getBrand())
                 .profitSharingAmount(createProductRequest.getProfitSharingAmount())
+                .price(createProductRequest.getPrice())
                 .stock(createProductRequest.getStock())
-                .image(imageFiles)
                 .build();
         productRepository.save(product);
 
@@ -56,12 +53,11 @@ public class ProductService {
         validationService.validate(productRequest);
 
         product.setName(productRequest.getName());
-        product.setDescription(productRequest.getDescription());
-        product.setPrice(productRequest.getPrice());
-        product.setProfitSharingPercentage(productRequest.getProfitSharingPercentage());
+        product.setBarcode(productRequest.getBarcode());
+        product.setBrand(productRequest.getBrand());
         product.setProfitSharingAmount(productRequest.getProfitSharingAmount());
+        product.setPrice(productRequest.getPrice());
         product.setStock(productRequest.getStock());
-        product.setImage(productRequest.getImageUrl());
         productRepository.save(product);
 
         return ProductResponse.convertToResponse(product);

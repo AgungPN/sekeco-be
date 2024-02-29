@@ -22,8 +22,7 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<Object> getList() {
-        String search = ""; // TODO: get search by request
-        return ResponseHandler.responseWithoutMessage(productService.getList(search), HttpStatus.OK);
+        return ResponseHandler.responseWithoutMessage(productService.getList(), HttpStatus.OK);
     }
 
     @GetMapping("/{productId}")

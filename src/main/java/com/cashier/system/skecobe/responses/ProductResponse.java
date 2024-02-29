@@ -11,31 +11,27 @@ import java.time.LocalDate;
 @Getter
 @Builder
 public class ProductResponse {
-    private Long id;
+    private Long productId;
+    private String barcode;
     private String name;
-    private String description;
-    private Long price;
-
-    private Long profitSharingPercentage;
+    private String brand;
     private Long profitSharingAmount;
+    private Long price;
     private Integer stock;
-    private String imageUrl;
     private LocalDate createdAt;
     private LocalDate lastModifiedAt;
 
     public static ProductResponse convertToResponse(Product product) {
         return ProductResponse.builder()
-                .id(product.getId())
+                .productId(product.getProductId())
+                .barcode(product.getBarcode())
                 .name(product.getName())
-                .description(product.getDescription())
-                .price(product.getPrice())
-                .profitSharingPercentage(product.getProfitSharingPercentage())
+                .brand(product.getBrand())
                 .profitSharingAmount(product.getProfitSharingAmount())
+                .price(product.getPrice())
                 .stock(product.getStock())
-                .imageUrl(product.getImage())
                 .createdAt(product.getCreatedAt())
                 .lastModifiedAt(product.getLastModifiedAt())
-                .imageUrl(Storage.getFileUrl(product.getImage(), "images/products"))
                 .build();
     }
 }

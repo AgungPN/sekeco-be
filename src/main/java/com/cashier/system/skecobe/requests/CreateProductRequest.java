@@ -18,22 +18,21 @@ import org.springframework.web.multipart.MultipartFile;
 public class CreateProductRequest {
     @NotBlank
     @Size(max = 200)
+    private String barcode;
+
+    @NotBlank
+    @Size(max = 200)
     private String name;
 
-    private String description;
-
-    @Min(0)
-    private Long price;
-
-    @Min(0)
-    @Max(100)
-    private Long profitSharingPercentage;
+    private String brand;
 
     @Min(0)
     private Long profitSharingAmount;
 
     @Min(0)
-    private Integer stock;
+    private Long price;
 
-    private MultipartFile image;
+
+    @Min(0)
+    private Integer stock;
 }
