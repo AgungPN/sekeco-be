@@ -2,10 +2,9 @@ package com.cashier.system.skecobe.services;
 
 import com.cashier.system.skecobe.entities.Product;
 import com.cashier.system.skecobe.handlers.exceptions.NotFoundException;
-import com.cashier.system.skecobe.helpers.Storage;
 import com.cashier.system.skecobe.repositories.ProductRepository;
-import com.cashier.system.skecobe.requests.CreateProductRequest;
-import com.cashier.system.skecobe.requests.UpdateProductRequest;
+import com.cashier.system.skecobe.requests.product.CreateProductRequest;
+import com.cashier.system.skecobe.requests.product.UpdateProductRequest;
 import com.cashier.system.skecobe.responses.ProductResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
