@@ -1,6 +1,6 @@
 package com.cashier.system.skecobe.entities;
 
-
+import com.cashier.system.skecobe.enums.TourCode;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,11 +12,11 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Builder
-public class Supplier {
+public class Tour {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private Long supplierId;
+    private Long tourId;
 
     @Column(nullable = false)
     private String name;
@@ -26,6 +26,10 @@ public class Supplier {
 
     @Column(nullable = false)
     private String phone;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TourCode tourCode;
 
     private LocalDate createdAt;
     private LocalDate updatedAt;

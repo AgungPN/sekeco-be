@@ -1,0 +1,70 @@
+package com.cashier.system.skecobe.services;
+
+import com.cashier.system.skecobe.entities.Tour;
+import com.cashier.system.skecobe.enums.TourCode;
+import com.cashier.system.skecobe.handlers.exceptions.NotFoundException;
+import com.cashier.system.skecobe.repositories.TourRepository;
+import com.cashier.system.skecobe.requests.tour.CreateTourRequest;
+import com.cashier.system.skecobe.requests.tour.UpdateTourRequest;
+import com.cashier.system.skecobe.responses.TourResponse;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@AllArgsConstructor
+public class TourService {
+    private TourRepository tourRepository;
+    private ValidationService validationService;
+
+
+    public List<TourResponse> getList() {
+        var tours = tourRepository.findAll();
+        return tours.stream().map(TourResponse::convertToResponse).toList();
+    }
+
+    public TourResponse findById(Long tourId) {
+        return tourRepository.findById(tourId)
+                .map(TourResponse::convertToResponse)
+                .orElseThrow(() -> new NotFoundException("Tour"));
+    }
+
+    public TourResponse save(CreateTourRequest createTourRequest) {
+        validationService.validate(createTourRequest);
+
+        TourCode tourCode = TourCode.valueOf(createTourRequest.getTourCode());
+
+        Tour tour = Tour.builder()
+                .name(createTourRequest.getName())
+                .address(createTourRequest.getAddress())
+                .phone(createTourRequest.getPhone())
+                .tourCode(tourCode)
+                .build();
+
+        tourRepository.save(tour);
+
+        return TourResponse.convertToResponse(tour);
+    }
+
+    public TourResponse update(Long id, UpdateTourRequest tourRequest) {
+        Tour tour = tourRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Tour"));
+
+        validationService.validate(tourRequest);
+
+        TourCode tourCode = TourCode.valueOf(tourRequest.getTourCode());
+
+        tour.setName(tourRequest.getName());
+        tour.setAddress(tourRequest.getAddress());
+        tour.setPhone(tourRequest.getPhone());
+        tour.setTourCode(tourCode);
+        tourRepository.save(tour);
+
+        return TourResponse.convertToResponse(tour);
+    }
+
+    public void deleteById(Long tourId) {
+        tourRepository.deleteById(tourId);
+    }
+}
