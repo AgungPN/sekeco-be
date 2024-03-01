@@ -1,37 +1,45 @@
 package com.cashier.system.skecobe.entities;
 
-
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
+@Table(name = "tb_order")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Builder
-public class Product {
+@Component
+public class Order {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId;
-
-    @Column(nullable = false, unique = true)
-    private String barcode;
+    private Long orderId;
 
     @Column(nullable = false)
-    private String name;
+    private Long cashierId;
 
-    private String brand;
-
-    private Long profitSharingAmount;
+    private Long invoiceTourId;
 
     @Column(nullable = false)
-    private Long price;
+    private int totalItems;
 
     @Column(nullable = false)
-    private Integer stock;
+    private Long totalPrice;
+
+    @Column(nullable = false)
+    private Long amount;
+
+    @Column(nullable = false)
+    private Long refund;
+
+    @OneToMany(mappedBy = "orderId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<OrderDetails> orderDetails;
 
     private LocalDate createdAt;
     private LocalDate lastModifiedAt;

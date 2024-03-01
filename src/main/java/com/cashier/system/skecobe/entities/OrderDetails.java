@@ -1,29 +1,30 @@
 package com.cashier.system.skecobe.entities;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "tb_order_details")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Builder
-public class Product {
+public class OrderDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId;
+    private Long orderDetailId;
 
-    @Column(nullable = false, unique = true)
-    private String barcode;
+    @ManyToOne(targetEntity = Order.class)
+    @JoinColumn(name = "orderId", referencedColumnName = "orderId")
+    private Order orderId;
 
-    @Column(nullable = false)
-    private String name;
-
-    private String brand;
+    @ManyToOne
+    @JoinColumn(name = "productId", referencedColumnName = "productId")
+    private Product productId;
 
     private Long profitSharingAmount;
 
@@ -31,7 +32,10 @@ public class Product {
     private Long price;
 
     @Column(nullable = false)
-    private Integer stock;
+    private int quantity;
+
+    @Column(nullable = false)
+    private Long subtotal;
 
     private LocalDate createdAt;
     private LocalDate lastModifiedAt;

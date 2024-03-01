@@ -30,6 +30,13 @@ public class ProductController {
         return ResponseHandler.responseWithoutMessage(productResponse, HttpStatus.OK);
     }
 
+    @GetMapping("/barcode")
+    public ResponseEntity<Object> getDataByBarcode(@RequestParam("barcode") String barcode) {
+        var productResponse = productService.findByBarcode(barcode);
+
+        return ResponseHandler.responseWithoutMessage(productResponse, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Object> create(@RequestBody CreateProductRequest productRequest) throws IOException {
         var productResponse = productService.save(productRequest);
