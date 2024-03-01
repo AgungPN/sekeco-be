@@ -3,7 +3,7 @@ package com.cashier.system.skecobe.controllers;
 import com.cashier.system.skecobe.requests.users.CreateCashierRequest;
 import com.cashier.system.skecobe.requests.users.UpdateCashierRequest;
 import com.cashier.system.skecobe.responses.ResponseHandler;
-import com.cashier.system.skecobe.services.UserService;
+import com.cashier.system.skecobe.services.CashierService;
 import lombok.AllArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
@@ -15,23 +15,23 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class CashierController {
 
-    private UserService userService;
+    private CashierService cashierService;
 
     @GetMapping
     public ResponseEntity<Object> getList() {
-        return ResponseHandler.responseWithoutMessage(userService.getListCashier(), HttpStatus.OK);
+        return ResponseHandler.responseWithoutMessage(cashierService.getListCashier(), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}")
     public ResponseEntity<Object> getOne(@PathVariable Long userId) {
-        var userResponse = userService.findById(userId);
+        var userResponse = cashierService.findById(userId);
 
         return ResponseHandler.responseWithoutMessage(userResponse, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Object> create(@RequestBody CreateCashierRequest userRequest) throws BadRequestException {
-        var userResponse = userService.save(userRequest);
+    public ResponseEntity<Object> create(@RequestBody CreateCashierRequest userRequest) {
+        var userResponse = cashierService.save(userRequest);
         return ResponseHandler.generateResponse(
                 "Cashier created", userResponse, HttpStatus.CREATED
         );
@@ -39,8 +39,8 @@ public class CashierController {
 
     @PutMapping("/{userId}")
     public ResponseEntity<Object> update(
-            @PathVariable Long userId, @RequestBody UpdateCashierRequest userRequest) throws BadRequestException {
-        var userResponse = userService.update(userId, userRequest);
+            @PathVariable Long userId, @RequestBody UpdateCashierRequest userRequest) {
+        var userResponse = cashierService.update(userId, userRequest);
 
         return ResponseHandler.generateResponse(
                 "Cashier updated", userResponse, HttpStatus.OK
@@ -49,7 +49,7 @@ public class CashierController {
 
     @DeleteMapping("/{userId}")
     public ResponseEntity<Object> delete(@PathVariable Long userId) {
-        userService.deleteById(userId);
+        cashierService.deleteById(userId);
 
         return ResponseHandler.successResponse(
                 "Cashier deleted", HttpStatus.OK

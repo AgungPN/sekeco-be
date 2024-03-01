@@ -9,13 +9,16 @@ import com.cashier.system.skecobe.requests.users.UpdateCashierRequest;
 import com.cashier.system.skecobe.responses.UserResponse;
 import lombok.AllArgsConstructor;
 import org.apache.coyote.BadRequestException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class UserService {
+public class CashierService {
     private UserRepository userRepository;
     private ValidationService validationService;
 
@@ -28,18 +31,18 @@ public class UserService {
     public UserResponse findById(Long userId) {
         return userRepository.findById(userId)
                 .map(UserResponse::convertToResponse)
-                .orElseThrow(() -> new NotFoundException("User"));
+                .orElseThrow(() -> new NotFoundException("Cashier"));
     }
 
-    public UserResponse save(CreateCashierRequest createUserRequest) throws BadRequestException {
+    public UserResponse save(CreateCashierRequest createUserRequest) {
         validationService.validate(createUserRequest);
 
         if (createUserRequest.getPassword().length() < 8) {
-            throw new BadRequestException("Password must be at least 8 characters long");
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Password must be at least 8 characters long");
         }
 
         if (!createUserRequest.getPassword().equals(createUserRequest.getConfirmPassword())) {
-            throw new BadRequestException("Password and Confirm Password must be the same");
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Password and Confirm Password must be the same");
         }
 
         User user = User.builder()
@@ -53,16 +56,16 @@ public class UserService {
         return UserResponse.convertToResponse(user);
     }
 
-    public UserResponse update(Long id, UpdateCashierRequest userRequest) throws BadRequestException {
+    public UserResponse update(Long id, UpdateCashierRequest userRequest) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("User"));
 
         if (userRequest.getPassword().length() < 8) {
-            throw new BadRequestException("Password must be at least 8 characters long");
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Password must be at least 8 characters long");
         }
 
         if (!userRequest.getPassword().equals(userRequest.getConfirmPassword())) {
-            throw new BadRequestException("Password and Confirm Password must be the same");
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Password and Confirm Password must be the same");
         }
 
         validationService.validate(userRequest);
