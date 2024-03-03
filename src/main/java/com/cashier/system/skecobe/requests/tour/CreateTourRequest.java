@@ -27,7 +27,7 @@ public class CreateTourRequest {
     private String address;
 
     @NotBlank
-    @Size(max = 15, min = 11)
+    @Size(min = 11, max = 15)
     private String phone;
 
     @EnumValidator(enumClazz = TourCode.class)

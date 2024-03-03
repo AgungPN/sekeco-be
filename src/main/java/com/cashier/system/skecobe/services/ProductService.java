@@ -17,24 +17,24 @@ import java.util.List;
 public class ProductService {
     private ProductRepository productRepository;
     private ValidationService validationService;
+    private SupplierService supplierService;
 
     public List<ProductResponse> getList() {
         var products = productRepository.findAll();
         return products.stream().map(ProductResponse::convertToResponse).toList();
     }
 
-    public ProductResponse findById(Long productId) {
+    public ProductResponse getOneById(Long productId) {
         return productRepository.findById(productId)
                 .map(ProductResponse::convertToResponse)
                 .orElseThrow(() -> new NotFoundException("Product"));
     }
 
-    public ProductResponse findByBarcode(String barcode) {
+    public ProductResponse getOneByBarcode(String barcode) {
         return productRepository.findByBarcode(barcode)
                 .map(ProductResponse::convertToResponse)
                 .orElseThrow(() -> new NotFoundException("Product"));
     }
-
 
     public ProductResponse save(CreateProductRequest createProductRequest) throws IOException {
         validationService.validate(createProductRequest);
