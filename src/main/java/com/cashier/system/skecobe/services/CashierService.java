@@ -11,20 +11,24 @@ import lombok.AllArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class CashierService {
+
     private UserRepository userRepository;
     private ValidationService validationService;
 
 
     public List<UserResponse> getListCashier() {
-        var users = userRepository.findCashierByRole(Role.CASHIER);
+        var users = userRepository.findCashierByRole(Role.ROLE_CASHIER);
         return users.stream().map(UserResponse::convertToResponse).toList();
     }
 
@@ -36,6 +40,7 @@ public class CashierService {
 
     public UserResponse save(CreateCashierRequest createUserRequest) {
         validationService.validate(createUserRequest);
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         if (createUserRequest.getPassword().length() < 8) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Password must be at least 8 characters long");
@@ -47,8 +52,8 @@ public class CashierService {
 
         User user = User.builder()
                 .username(createUserRequest.getUsername())
-                .password(createUserRequest.getPassword()) // TODO: hash password with bcrypt
-                .role(Role.CASHIER)
+                .password(passwordEncoder.encode(createUserRequest.getPassword()))
+                .role(Role.ROLE_ADMIN)
                 .build();
 
         userRepository.save(user);
@@ -75,6 +80,10 @@ public class CashierService {
         userRepository.save(user);
 
         return UserResponse.convertToResponse(user);
+    }
+
+    public Optional<User> findByUsername(String username){
+        return userRepository.findByUsername(username);
     }
 
     public void deleteById(Long userId) {

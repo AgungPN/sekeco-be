@@ -3,10 +3,12 @@ package com.cashier.system.skecobe.controllers;
 import com.cashier.system.skecobe.requests.product.CreateProductRequest;
 import com.cashier.system.skecobe.requests.product.UpdateProductRequest;
 import com.cashier.system.skecobe.responses.ResponseHandler;
+import com.cashier.system.skecobe.security.UserPrincipal;
 import com.cashier.system.skecobe.services.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;

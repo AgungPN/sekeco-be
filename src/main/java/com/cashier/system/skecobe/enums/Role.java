@@ -1,6 +1,6 @@
 package com.cashier.system.skecobe.enums;
 
 public enum Role {
-    ADMIN,
-    CASHIER,
+    ROLE_ADMIN,
+    ROLE_CASHIER,
 }
