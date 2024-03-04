@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 @AllArgsConstructor
 @NoArgsConstructor
 @Validated
+@Deprecated
 public class UpdateProductRequest {
     private Long id;
 

@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -23,9 +24,12 @@ public class SupplierService {
         return suppliers.stream().map(SupplierResponse::convertToResponse).toList();
     }
 
-    public SupplierResponse findById(Long supplierId) {
+    public SupplierResponse getOneById(Long supplierId) {
+        return SupplierResponse.convertToResponse(findById(supplierId));
+    }
+
+    public Supplier findById(Long supplierId) {
         return supplierRepository.findById(supplierId)
-                .map(SupplierResponse::convertToResponse)
                 .orElseThrow(() -> new NotFoundException("Supplier"));
     }
 

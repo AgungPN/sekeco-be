@@ -27,14 +27,14 @@ public class ProductController {
 
     @GetMapping("/{productId}")
     public ResponseEntity<Object> getOne(@PathVariable Long productId) {
-        var productResponse = productService.findById(productId);
+        var productResponse = productService.getOneById(productId);
 
         return ResponseHandler.responseWithoutMessage(productResponse, HttpStatus.OK);
     }
 
     @GetMapping("/barcode")
     public ResponseEntity<Object> getDataByBarcode(@RequestParam("barcode") String barcode) {
-        var productResponse = productService.findByBarcode(barcode);
+        var productResponse = productService.getOneByBarcode(barcode);
 
         return ResponseHandler.responseWithoutMessage(productResponse, HttpStatus.OK);
     }

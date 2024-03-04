@@ -23,7 +23,7 @@ public class SupplierController {
 
     @GetMapping("/{supplierId}")
     public ResponseEntity<Object> getOne(@PathVariable Long supplierId) {
-        var supplierResponse = supplierService.findById(supplierId);
+        var supplierResponse = supplierService.getOneById(supplierId);
 
         return ResponseHandler.responseWithoutMessage(supplierResponse, HttpStatus.OK);
     }

@@ -7,6 +7,7 @@ import com.cashier.system.skecobe.requests.OrderDetailsRequest;
 import com.cashier.system.skecobe.requests.OrderRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class OrderService {
     private final ValidationService validationService;
     private final Order order;
 
+    @Transactional(readOnly = true)
     public void saveOrder(OrderRequest orderRequest){
         validationService.validate(orderRequest);
 
