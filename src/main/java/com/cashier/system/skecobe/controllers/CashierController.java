@@ -2,10 +2,15 @@ package com.cashier.system.skecobe.controllers;
 
 import com.cashier.system.skecobe.requests.users.CreateCashierRequest;
 import com.cashier.system.skecobe.requests.users.UpdateCashierRequest;
+import com.cashier.system.skecobe.responses.ProductResponse;
 import com.cashier.system.skecobe.responses.ResponseHandler;
+import com.cashier.system.skecobe.responses.UserResponse;
 import com.cashier.system.skecobe.services.CashierService;
 import lombok.AllArgsConstructor;
 import org.apache.coyote.BadRequestException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +23,8 @@ public class CashierController {
     private CashierService cashierService;
 
     @GetMapping
-    public ResponseEntity<Object> getList() {
-        return ResponseHandler.responseWithoutMessage(cashierService.getListCashier(), HttpStatus.OK);
+    public Page<UserResponse> getList(@PageableDefault() Pageable pageable) {
+        return cashierService.getListCashier(pageable);
     }
 
     @GetMapping("/{userId}")

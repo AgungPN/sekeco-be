@@ -12,7 +12,6 @@ public class UserResponse {
 
     private Long userId;
     private String username;
-    private String password;
     private LocalDate createdAt;
     private LocalDate updatedAt;
 
@@ -20,7 +19,6 @@ public class UserResponse {
         return UserResponse.builder()
                 .userId(cashier.getUserId())
                 .username(cashier.getUsername())
-                .password(cashier.getPassword())
                 .createdAt(cashier.getCreatedAt())
                 .updatedAt(cashier.getUpdatedAt())
                 .build();
