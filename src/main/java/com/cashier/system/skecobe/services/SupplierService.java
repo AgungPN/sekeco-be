@@ -7,10 +7,9 @@ import com.cashier.system.skecobe.requests.supplier.CreateSupplierRequest;
 import com.cashier.system.skecobe.requests.supplier.UpdateSupplierRequest;
 import com.cashier.system.skecobe.responses.SupplierResponse;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -19,9 +18,9 @@ public class SupplierService {
     private ValidationService validationService;
 
 
-    public List<SupplierResponse> getList() {
-        var suppliers = supplierRepository.findAll();
-        return suppliers.stream().map(SupplierResponse::convertToResponse).toList();
+    public Page<SupplierResponse> getList(Pageable pageable) {
+        var suppliers = supplierRepository.findAll(pageable);
+        return suppliers.map(SupplierResponse::convertToResponse);
     }
 
     public SupplierResponse getOneById(Long supplierId) {

@@ -8,9 +8,9 @@ import com.cashier.system.skecobe.requests.users.CreateCashierRequest;
 import com.cashier.system.skecobe.requests.users.UpdateCashierRequest;
 import com.cashier.system.skecobe.responses.UserResponse;
 import lombok.AllArgsConstructor;
-import org.apache.coyote.BadRequestException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,10 +26,9 @@ public class CashierService {
     private UserRepository userRepository;
     private ValidationService validationService;
 
-
-    public List<UserResponse> getListCashier() {
-        var users = userRepository.findCashierByRole(Role.ROLE_CASHIER);
-        return users.stream().map(UserResponse::convertToResponse).toList();
+    public Page<UserResponse> getListCashier(Pageable pageable) {
+        var users = userRepository.findCashierByRole(Role.ROLE_CASHIER, pageable);
+        return users.map(UserResponse::convertToResponse);
     }
 
     public UserResponse findById(Long userId) {
@@ -53,7 +52,7 @@ public class CashierService {
         User user = User.builder()
                 .username(createUserRequest.getUsername())
                 .password(passwordEncoder.encode(createUserRequest.getPassword()))
-                .role(Role.ROLE_ADMIN)
+                .role(Role.ROLE_CASHIER) // This registration is only for cashier
                 .build();
 
         userRepository.save(user);
@@ -75,14 +74,16 @@ public class CashierService {
 
         validationService.validate(userRequest);
 
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
         user.setUsername(userRequest.getUsername());
-        user.setPassword(userRequest.getPassword()); // TODO: hash password with bcrypt
+        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         userRepository.save(user);
 
         return UserResponse.convertToResponse(user);
     }
 
-    public Optional<User> findByUsername(String username){
+    public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 

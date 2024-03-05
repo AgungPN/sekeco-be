@@ -18,7 +18,7 @@ public class ProductResponse {
     private Long price;
     private Integer stock;
     private LocalDate createdAt;
-    private LocalDate lastModifiedAt;
+    private LocalDate updatedAt;
 
     public static ProductResponse convertToResponse(Product product) {
         return ProductResponse.builder()
@@ -30,7 +30,7 @@ public class ProductResponse {
                 .price(product.getPrice())
                 .stock(product.getStock())
                 .createdAt(product.getCreatedAt())
-                .lastModifiedAt(product.getLastModifiedAt())
+                .updatedAt(product.getLastModifiedAt())
                 .build();
     }
 }

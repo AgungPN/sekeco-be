@@ -8,6 +8,8 @@ import com.cashier.system.skecobe.requests.tour.CreateTourRequest;
 import com.cashier.system.skecobe.requests.tour.UpdateTourRequest;
 import com.cashier.system.skecobe.responses.TourResponse;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,9 +21,9 @@ public class TourService {
     private ValidationService validationService;
 
 
-    public List<TourResponse> getList() {
-        var tours = tourRepository.findAll();
-        return tours.stream().map(TourResponse::convertToResponse).toList();
+    public Page<TourResponse> getList(Pageable pageable) {
+        var tours = tourRepository.findAll(pageable);
+        return tours.map(TourResponse::convertToResponse);
     }
 
     public TourResponse findById(Long tourId) {

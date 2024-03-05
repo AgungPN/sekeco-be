@@ -2,9 +2,14 @@ package com.cashier.system.skecobe.controllers;
 
 import com.cashier.system.skecobe.requests.supplier.CreateSupplierRequest;
 import com.cashier.system.skecobe.requests.supplier.UpdateSupplierRequest;
+import com.cashier.system.skecobe.responses.ProductResponse;
 import com.cashier.system.skecobe.responses.ResponseHandler;
+import com.cashier.system.skecobe.responses.SupplierResponse;
 import com.cashier.system.skecobe.services.SupplierService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +22,8 @@ public class SupplierController {
     private SupplierService supplierService;
 
     @GetMapping
-    public ResponseEntity<Object> getList() {
-        return ResponseHandler.responseWithoutMessage(supplierService.getList(), HttpStatus.OK);
+    public Page<SupplierResponse> getList(@PageableDefault() Pageable pageable) {
+        return supplierService.getList(pageable);
     }
 
     @GetMapping("/{supplierId}")

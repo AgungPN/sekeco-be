@@ -2,9 +2,14 @@ package com.cashier.system.skecobe.controllers;
 
 import com.cashier.system.skecobe.requests.tour.CreateTourRequest;
 import com.cashier.system.skecobe.requests.tour.UpdateTourRequest;
+import com.cashier.system.skecobe.responses.ProductResponse;
 import com.cashier.system.skecobe.responses.ResponseHandler;
+import com.cashier.system.skecobe.responses.TourResponse;
 import com.cashier.system.skecobe.services.TourService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +22,8 @@ public class TourController {
     private TourService tourService;
 
     @GetMapping
-    public ResponseEntity<Object> getList() {
-        return ResponseHandler.responseWithoutMessage(tourService.getList(), HttpStatus.OK);
+    public Page<TourResponse> getList(@PageableDefault() Pageable pageable) {
+        return tourService.getList(pageable);
     }
 
     @GetMapping("/{tourId}")

@@ -7,21 +7,21 @@ import com.cashier.system.skecobe.requests.product.CreateProductRequest;
 import com.cashier.system.skecobe.requests.product.UpdateProductRequest;
 import com.cashier.system.skecobe.responses.ProductResponse;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class ProductService {
     private ProductRepository productRepository;
     private ValidationService validationService;
-    private SupplierService supplierService;
 
-    public List<ProductResponse> getList() {
-        var products = productRepository.findAll();
-        return products.stream().map(ProductResponse::convertToResponse).toList();
+    public Page<ProductResponse> getList(Pageable pageable) {
+        var products = productRepository.findAll(pageable);
+        return products.map(ProductResponse::convertToResponse);
     }
 
     public ProductResponse getOneById(Long productId) {
