@@ -1,5 +1,6 @@
 package com.cashier.system.skecobe.handlers.advice;
 
+import com.cashier.system.skecobe.handlers.exceptions.MultipleErrorsException;
 import com.cashier.system.skecobe.handlers.exceptions.NotFoundException;
 import com.cashier.system.skecobe.responses.ResponseHandler;
 import jakarta.validation.ConstraintViolationException;
@@ -30,6 +31,14 @@ public class RestAdviceController {
         return ResponseHandler.errorResponse(
                 Collections.singletonList(e.getReason()),
                 (HttpStatus) e.getStatusCode()
+        );
+    }
+
+    @ExceptionHandler(MultipleErrorsException.class)
+    public ResponseEntity<Object> multipleErrorsException(MultipleErrorsException e) {
+        return ResponseHandler.errorResponse(
+                e.getErrors(),
+                HttpStatus.UNPROCESSABLE_ENTITY
         );
     }
 

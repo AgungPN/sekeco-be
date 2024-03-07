@@ -4,19 +4,19 @@ import com.cashier.system.skecobe.entities.Product;
 import com.cashier.system.skecobe.entities.Purchase;
 import com.cashier.system.skecobe.entities.PurchaseDetail;
 import com.cashier.system.skecobe.entities.Supplier;
+import com.cashier.system.skecobe.handlers.exceptions.MultipleErrorsException;
 import com.cashier.system.skecobe.handlers.exceptions.NotFoundException;
 import com.cashier.system.skecobe.repositories.ProductRepository;
 import com.cashier.system.skecobe.repositories.PurchaseDetailRepository;
 import com.cashier.system.skecobe.repositories.PurchaseRepository;
 import com.cashier.system.skecobe.requests.purchases.CreatePurchaseRequest;
 import com.cashier.system.skecobe.requests.purchases.product.ExistingProductRequest;
+import jakarta.validation.ValidationException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
@@ -37,7 +37,8 @@ public class PurchaseService {
         Supplier supplier = supplierService.findById(productRequest.getSupplierId());
         List<Product> newProducts = new ArrayList<>();
         List<Product> existingProducts = productRepository.findAllById(
-                productRequest.getExistingProducts().parallelStream().map(ExistingProductRequest::getProductId).toList()
+                productRequest.getExistingProducts() == null ? Collections.emptyList()
+                        : productRequest.getExistingProducts().parallelStream().map(ExistingProductRequest::getProductId).toList()
         );
         List<PurchaseDetail> purchaseDetails = new ArrayList<>();
         Purchase purchase = Purchase.builder().supplier(supplier)
@@ -74,6 +75,10 @@ public class PurchaseService {
                                 .build()
                 );
             });
+            List<Product> byBarcodeIn = productRepository.findByBarcodeIn(newProducts.parallelStream().map(Product::getBarcode).toList());
+            if (!byBarcodeIn.isEmpty()) {
+                throw new MultipleErrorsException("Product", byBarcodeIn.parallelStream().map(Product::getBarcode).toList(), " already exists");
+            }
         }
 
         if (productRequest.getExistingProducts() != null) {
