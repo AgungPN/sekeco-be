@@ -1,6 +1,6 @@
 package com.cashier.system.skecobe.controllers;
 
-import com.cashier.system.skecobe.requests.OrderRequest;
+import com.cashier.system.skecobe.requests.order.OrderRequest;
 import com.cashier.system.skecobe.services.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

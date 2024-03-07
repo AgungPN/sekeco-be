@@ -1,6 +1,10 @@
-package com.cashier.system.skecobe.requests;
+package com.cashier.system.skecobe.requests.order;
 
+import com.cashier.system.skecobe.entities.InvoiceTour;
+import com.cashier.system.skecobe.entities.User;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,20 +18,23 @@ import java.util.List;
 @Validated
 public class OrderRequest {
 
-    private Long cashierId;
+    private User userId;
 
-    private Long invoiceTourId;
+    private InvoiceTour invoiceTourId;
 
-    @Min(0)
+    @NotNull
+    @Positive
     private int totalItems;
 
-    @Min(0)
+    @NotNull
+    @Positive
     private Long totalPrice;
 
-    @Min(0)
+    @NotNull
+    @Positive
     private Long amount;
 
-    @Min(0)
+    @NotNull
     private Long refund;
 
     List<OrderDetailsRequest> orderDetailsRequests;

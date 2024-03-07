@@ -1,6 +1,6 @@
 package com.cashier.system.skecobe.controllers;
 
-import com.cashier.system.skecobe.requests.LoginRequest;
+import com.cashier.system.skecobe.requests.auth.LoginRequest;
 import com.cashier.system.skecobe.responses.LoginResponse;
 import com.cashier.system.skecobe.services.AuthService;
 import lombok.RequiredArgsConstructor;

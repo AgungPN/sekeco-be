@@ -1,4 +1,4 @@
-package com.cashier.system.skecobe.requests;
+package com.cashier.system.skecobe.requests.auth;
 
 import lombok.Builder;
 import lombok.Getter;

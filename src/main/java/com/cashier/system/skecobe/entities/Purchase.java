@@ -27,7 +27,6 @@ public class Purchase {
     @Column(nullable = false)
     private Long totalPrice;
 
-    @Column(nullable = false)
     private Integer discount = 0;
 
     @Column(nullable = false)

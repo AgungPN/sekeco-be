@@ -21,10 +21,13 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
-    @Column(nullable = false)
-    private Long cashierId;
+    @ManyToOne
+    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    private User userId;
 
-    private Long invoiceTourId;
+    @ManyToOne
+    @JoinColumn(name = "invoiceTourId", referencedColumnName = "invoiceTourId")
+    private InvoiceTour invoiceTourId;
 
     @Column(nullable = false)
     private int totalItems;

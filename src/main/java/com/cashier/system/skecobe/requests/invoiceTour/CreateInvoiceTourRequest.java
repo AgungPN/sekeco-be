@@ -1,7 +1,7 @@
-package com.cashier.system.skecobe.requests.order;
+package com.cashier.system.skecobe.requests.invoiceTour;
 
-import com.cashier.system.skecobe.entities.Product;
-import jakarta.validation.constraints.Min;
+import com.cashier.system.skecobe.entities.Tour;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -13,21 +13,14 @@ import org.springframework.validation.annotation.Validated;
 @AllArgsConstructor
 @NoArgsConstructor
 @Validated
-public class OrderDetailsRequest {
+public class CreateInvoiceTourRequest {
 
-    private Product productId;
-
-    private Long profitSharingAmount;
-
+    private Tour tourId;
     @NotNull
     @Positive
-    private Long price;
-
+    private int unitBus;
     @NotNull
     @Positive
-    private int quantity;
+    private int employee;
 
-    @NotNull
-    @Positive
-    private Long subtotal;
 }

@@ -2,40 +2,35 @@ package com.cashier.system.skecobe.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "order_details")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Builder
-public class OrderDetails {
+@Component
+public class InvoiceTour {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderDetailId;
-
-    @ManyToOne(targetEntity = Order.class)
-    @JoinColumn(name = "orderId", referencedColumnName = "orderId")
-    private Order orderId;
+    private Long invoiceTourId;
 
     @ManyToOne
-    @JoinColumn(name = "productId", referencedColumnName = "productId")
-    private Product productId;
-
-    private Long profitSharingAmount;
+    @JoinColumn(name = "tourId", referencedColumnName = "tourId")
+    private Tour tourId;
 
     @Column(nullable = false)
-    private Long price;
+    private int unitBus;
 
     @Column(nullable = false)
-    private int quantity;
+    private Long income;
 
     @Column(nullable = false)
-    private Long subtotal;
+    private int employee;
 
     private LocalDate createdAt;
     private LocalDate lastModifiedAt;
