@@ -24,18 +24,18 @@
             <tr>
                 <th>No Transaksi</th>
                 <th>:</th>
-                <td>F0001</td>
+                <td th:text="${order.orderId}"></td>
             </tr>
             <tr>
                 <th>Kasir</th>
                 <th>:</th>
-                <td>F0001</td>
+                <td th:text="${order.userId.username}"></td>
             </tr>
             <tr>
                 <th>Tanggal & Jam</th>
                 <th>:</th>
-                <td>11-2-2024</td>
-                <td>13:40:10</td>
+                <td th:text="${#temporals.format(order.createdAt, 'dd-MM-yyyy')}"></td>
+                <td th:text="${#temporals.format(order.createdAt, 'HH:mm:ss')}"></td>
             </tr>
         </table>
     </div>
