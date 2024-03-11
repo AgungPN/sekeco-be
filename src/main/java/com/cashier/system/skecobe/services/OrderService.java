@@ -25,7 +25,7 @@ public class OrderService {
     private final InvoiceTourService tourService;
 
     @Transactional()
-    public void saveOrder(OrderRequest orderRequest){
+    public Order saveOrder(OrderRequest orderRequest){
         validationService.validate(orderRequest);
 
         Order order = new Order();
@@ -53,6 +53,7 @@ public class OrderService {
         order.setOrderDetails(orderDetailsList);
 
         orderRepository.save(order);
+        return order;
     }
 
     private OrderDetails mapToOrderDetails(OrderDetailsRequest request, Order order){

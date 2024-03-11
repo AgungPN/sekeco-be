@@ -77,7 +77,7 @@ public class PurchaseService {
             });
             List<Product> byBarcodeIn = productRepository.findByBarcodeIn(newProducts.parallelStream().map(Product::getBarcode).toList());
             if (!byBarcodeIn.isEmpty()) {
-                throw new MultipleErrorsException("Product", byBarcodeIn.parallelStream().map(Product::getBarcode).toList(), " already exists");
+                throw new MultipleErrorsException("Product", byBarcodeIn.parallelStream().map(product -> product.getBarcode() + " already exists").toList());
             }
         }
 

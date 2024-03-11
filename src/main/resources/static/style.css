@@ -1,0 +1,59 @@
+.to-left {
+    float: left;
+}
+
+.to-right {
+    float: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.clearfix::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+table th {
+    text-align: left;
+}
+
+.nota {
+    width: 300px; /* Atur lebar sesuai keinginan Anda */
+    padding: 20px;
+    border: 1px solid #000;
+    font-family: Arial, sans-serif;
+}
+
+.header h2 {
+    margin-top: 0;
+}
+
+.order-information table {
+    width: 100%;
+}
+
+.products-list {
+    margin-top: 20px;
+    margin-left: -10px;
+}
+
+/* .product {
+  overflow: hidden;
+  margin-bottom: 10px;
+} */
+
+.product strong {
+    display: block;
+}
+
+.total-price {
+    font-weight: bolder;
+    font-size: 1.3rem;
+}
+
+hr {
+    border-style: dashed;
+}

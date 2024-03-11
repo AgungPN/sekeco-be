@@ -1,0 +1,78 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="id">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{style.css}"/>
+</head>
+<body>
+<div class="nota">
+    <div class="header">
+        <h2 class="text-center">Rumah Makan Sekeco</h2>
+        <p class="text-center">
+            Beroken, Banyukuning, Bandungan, Kabupaten Semarang, Jawa Tengah 50614
+        </p>
+        <p class="text-center">Telp. 081327168270</p>
+    </div>
+
+    <hr/>
+
+    <div class="order-information">
+        <table>
+            <tr>
+                <th>No Transaksi</th>
+                <th>:</th>
+                <td>F0001</td>
+            </tr>
+            <tr>
+                <th>Kasir</th>
+                <th>:</th>
+                <td>F0001</td>
+            </tr>
+            <tr>
+                <th>Tanggal & Jam</th>
+                <th>:</th>
+                <td>11-2-2024</td>
+                <td>13:40:10</td>
+            </tr>
+        </table>
+    </div>
+    <hr/>
+
+    <ol class="products-list">
+        <li class="product" th:each="orderDetail : ${order.orderDetails}">
+            <strong th:text="${orderDetail.productId.name}"></strong>
+            <p class="clearfix">
+                <span class="to-left" th:text="${orderDetail.quantity + ' x ' + orderDetail.price}"></span>
+                <span class="to-right" th:text="${#numbers.formatCurrency(orderDetail.subtotal)}"></span>
+            </p>
+        </li>
+    </ol>
+    <hr/>
+
+    <div class="footer">
+        <p><strong>Total Item : </strong> <span th:text="${order.totalItems}"></span></p>
+        <div class="clearfix">
+            <p class="to-left">Sub Total</p>
+            <p class="to-right" th:text="${#numbers.formatCurrency(order.totalPrice)}"></p>
+        </div>
+        <div class="clearfix total-price">
+            <p class="to-left">Total</p>
+            <p class="to-right" th:text="${#numbers.formatCurrency(order.totalPrice)}"></p>
+        </div>
+        <div class="clearfix">
+            <p class="to-left">Bayar (Cash)</p>
+            <p class="to-right" th:text="${#numbers.formatCurrency(order.amount)}"></p>
+        </div>
+        <div class="clearfix">
+            <p class="to-left">Kembali</p>
+            <p class="to-right" th:text="${#numbers.formatCurrency(order.refund)}"></p>
+        </div>
+
+        <p class="text-center">Terimakasih Telah Belanja</p>
+    </div>
+</div>
+</body>
+</html>

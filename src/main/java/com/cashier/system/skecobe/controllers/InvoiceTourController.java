@@ -2,8 +2,6 @@ package com.cashier.system.skecobe.controllers;
 
 import com.cashier.system.skecobe.requests.invoiceTour.CreateInvoiceTourRequest;
 import com.cashier.system.skecobe.requests.invoiceTour.UpdateInvoiceTourRequest;
-import com.cashier.system.skecobe.requests.order.OrderRequest;
-import com.cashier.system.skecobe.requests.product.CreateProductRequest;
 import com.cashier.system.skecobe.responses.ResponseHandler;
 import com.cashier.system.skecobe.services.InvoiceTourService;
 import lombok.AllArgsConstructor;
