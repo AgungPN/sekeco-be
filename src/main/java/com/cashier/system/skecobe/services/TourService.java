@@ -26,6 +26,11 @@ public class TourService {
         return tours.map(TourResponse::convertToResponse);
     }
 
+    public Page<TourResponse> getList(String search, Pageable pageable) {
+        var tours = tourRepository.findByNameContainingOrPhoneContainingOrderByName(search, search, pageable);
+        return tours.map(TourResponse::convertToResponse);
+    }
+
     public TourResponse findById(Long tourId) {
         return tourRepository.findById(tourId)
                 .map(TourResponse::convertToResponse)

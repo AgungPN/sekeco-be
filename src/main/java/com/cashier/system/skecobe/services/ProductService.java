@@ -24,7 +24,12 @@ public class ProductService {
         return products.map(ProductResponse::convertToResponse);
     }
 
-    public Product getOneById(Long productId) {
+    public Page<ProductResponse> getList(String search, Pageable pageable) {
+        var products = productRepository.findByNameContainingOrBrandContainingOrBarcodeContainingOrderByName(search, search, search, pageable);
+        return products.map(ProductResponse::convertToResponse);
+    }
+
+        public Product getOneById(Long productId) {
         return productRepository.findById(productId)
                 .orElseThrow(() -> new NotFoundException("Product"));
     }

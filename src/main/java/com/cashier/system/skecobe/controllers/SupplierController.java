@@ -2,7 +2,6 @@ package com.cashier.system.skecobe.controllers;
 
 import com.cashier.system.skecobe.requests.supplier.CreateSupplierRequest;
 import com.cashier.system.skecobe.requests.supplier.UpdateSupplierRequest;
-import com.cashier.system.skecobe.responses.ProductResponse;
 import com.cashier.system.skecobe.responses.ResponseHandler;
 import com.cashier.system.skecobe.responses.SupplierResponse;
 import com.cashier.system.skecobe.services.SupplierService;
@@ -14,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/suppliers")
 @AllArgsConstructor
@@ -22,8 +23,12 @@ public class SupplierController {
     private SupplierService supplierService;
 
     @GetMapping
-    public Page<SupplierResponse> getList(@PageableDefault() Pageable pageable) {
-        return supplierService.getList(pageable);
+    public Page<SupplierResponse> getList(
+            @RequestParam(value = "search", required = false) String search,
+            @PageableDefault() Pageable pageable) {
+        return search == null || search.isEmpty()
+                ? supplierService.getList(pageable)
+                : supplierService.getList(search, pageable);
     }
 
     @GetMapping("/{supplierId}")

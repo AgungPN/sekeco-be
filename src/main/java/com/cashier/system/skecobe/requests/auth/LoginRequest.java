@@ -1,11 +1,12 @@
 package com.cashier.system.skecobe.requests.auth;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
-@Getter
 @Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class LoginRequest {
-    private final String username;
-    private final String password;
+    private String username;
+    private String password;
 }

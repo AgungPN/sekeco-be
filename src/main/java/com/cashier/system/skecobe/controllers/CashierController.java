@@ -23,8 +23,12 @@ public class CashierController {
     private CashierService cashierService;
 
     @GetMapping
-    public Page<UserResponse> getList(@PageableDefault() Pageable pageable) {
-        return cashierService.getListCashier(pageable);
+    public Page<UserResponse> getList(
+            @RequestParam(value = "search", required = false) String search,
+            @PageableDefault() Pageable pageable) {
+        return search == null || search.isEmpty()
+                ? cashierService.getListCashier(pageable)
+                : cashierService.getListCashier(search, pageable);
     }
 
     @GetMapping("/{userId}")
