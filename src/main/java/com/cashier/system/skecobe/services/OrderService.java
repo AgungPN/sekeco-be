@@ -1,8 +1,6 @@
 package com.cashier.system.skecobe.services;
 
-import com.cashier.system.skecobe.entities.InvoiceTour;
-import com.cashier.system.skecobe.entities.Order;
-import com.cashier.system.skecobe.entities.OrderDetails;
+import com.cashier.system.skecobe.entities.*;
 import com.cashier.system.skecobe.repositories.InvoiceTourRepository;
 import com.cashier.system.skecobe.repositories.OrderRepository;
 import com.cashier.system.skecobe.requests.invoiceTour.CreateInvoiceTourRequest;
@@ -10,6 +8,7 @@ import com.cashier.system.skecobe.requests.invoiceTour.UpdateInvoiceTourRequest;
 import com.cashier.system.skecobe.requests.order.OrderDetailsRequest;
 import com.cashier.system.skecobe.requests.order.OrderRequest;
 import com.cashier.system.skecobe.responses.InvoiceTourResponse;
+import com.cashier.system.skecobe.responses.UserResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +21,9 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final ValidationService validationService;
-    private final InvoiceTourService tourService;
+    private InvoiceTourService tourService;
+    private CashierService cashierService;
+    private ProductService productService;
 
     @Transactional()
     public Order saveOrder(OrderRequest orderRequest){
@@ -30,18 +31,8 @@ public class OrderService {
 
         Order order = new Order();
 
-        order.setUserId(orderRequest.getUserId());
-        if(orderRequest.getInvoiceTourId() != null){
-            InvoiceTourResponse response = tourService.getOneById(orderRequest.getInvoiceTourId().getInvoiceTourId());
-            UpdateInvoiceTourRequest request = new UpdateInvoiceTourRequest();
-            request.setInvoiceTourId(response.getInvoiceTourId());
-            request.setTourId(response.getTourId());
-            request.setUnitBus(response.getUnitBus());
-            request.setIncome(response.getIncome() + orderRequest.getTotalPrice());
-            request.setEmployee(response.getEmployee());
-            tourService.update(request);
-        }
-        order.setInvoiceTourId(orderRequest.getInvoiceTourId());
+        order.setUserId(cashierService.findById(orderRequest.getUserId()));
+        order.setInvoiceTourId(invoiceTour(orderRequest.getInvoiceTourId(), orderRequest.getTotalPrice()));
         order.setTotalItems(orderRequest.getTotalItems());
         order.setTotalPrice(orderRequest.getTotalPrice());
         order.setAmount(orderRequest.getAmount());
@@ -56,10 +47,27 @@ public class OrderService {
         return order;
     }
 
+    private InvoiceTour invoiceTour(Long invoiceTourId, Long totalPrice){
+        if(invoiceTourId != null){
+            InvoiceTour response = tourService.getOneById(invoiceTourId);
+            UpdateInvoiceTourRequest request = new UpdateInvoiceTourRequest();
+            request.setInvoiceTourId(response.getInvoiceTourId());
+            request.setTourId(response.getTourId());
+            request.setUnitBus(response.getUnitBus());
+            request.setIncome(response.getIncome() + totalPrice);
+            request.setEmployee(response.getEmployee());
+            tourService.update(request);
+            return response;
+        }else {
+            return null;
+        }
+
+    }
+
     private OrderDetails mapToOrderDetails(OrderDetailsRequest request, Order order){
         return OrderDetails.builder()
                 .orderId(order)
-                .productId(request.getProductId())
+                .productId(productService.getOneById(request.getProductId()))
                 .profitSharingAmount(request.getProfitSharingAmount())
                 .price(request.getPrice())
                 .quantity(request.getQuantity())

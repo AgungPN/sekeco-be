@@ -18,9 +18,9 @@ import java.util.List;
 @Validated
 public class OrderRequest {
 
-    private User userId;
+    private Long userId;
 
-    private InvoiceTour invoiceTourId;
+    private Long invoiceTourId;
 
     @NotNull
     @Positive

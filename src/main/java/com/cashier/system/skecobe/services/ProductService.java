@@ -24,9 +24,8 @@ public class ProductService {
         return products.map(ProductResponse::convertToResponse);
     }
 
-    public ProductResponse getOneById(Long productId) {
+    public Product getOneById(Long productId) {
         return productRepository.findById(productId)
-                .map(ProductResponse::convertToResponse)
                 .orElseThrow(() -> new NotFoundException("Product"));
     }
 

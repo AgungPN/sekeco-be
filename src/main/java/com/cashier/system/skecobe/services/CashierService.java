@@ -31,9 +31,8 @@ public class CashierService {
         return users.map(UserResponse::convertToResponse);
     }
 
-    public UserResponse findById(Long userId) {
+    public User findById(Long userId) {
         return userRepository.findById(userId)
-                .map(UserResponse::convertToResponse)
                 .orElseThrow(() -> new NotFoundException("Cashier"));
     }
 

@@ -19,9 +19,8 @@ public class InvoiceTourService {
     private final TourRepository tourRepository;
     private final ValidationService validationService;
 
-    public InvoiceTourResponse getOneById(Long invoiceTourId){
+    public InvoiceTour getOneById(Long invoiceTourId){
         return invoiceTourRepository.findById(invoiceTourId)
-                .map(InvoiceTourResponse::convertToResponse)
                 .orElseThrow(() -> new NotFoundException("Invoice Tour"));
     }
 
