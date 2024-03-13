@@ -25,8 +25,12 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping
-    public Page<ProductResponse> getList(@PageableDefault() Pageable pageable) {
-        return productService.getList(pageable);
+    public Page<ProductResponse> getList(
+            @RequestParam(value = "search", required = false) String search,
+            @PageableDefault() Pageable pageable) {
+        return search == null || search.isEmpty()
+                ? productService.getList(pageable)
+                : productService.getList(search, pageable);
     }
 
     @GetMapping("/{productId}")

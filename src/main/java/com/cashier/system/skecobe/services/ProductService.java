@@ -24,6 +24,11 @@ public class ProductService {
         return products.map(ProductResponse::convertToResponse);
     }
 
+    public Page<ProductResponse> getList(String search, Pageable pageable) {
+        var products = productRepository.findByNameContainingOrBrandContainingOrBarcodeContainingOrderByName(search, search, search, pageable);
+        return products.map(ProductResponse::convertToResponse);
+    }
+
     public ProductResponse getOneById(Long productId) {
         return productRepository.findById(productId)
                 .map(ProductResponse::convertToResponse)

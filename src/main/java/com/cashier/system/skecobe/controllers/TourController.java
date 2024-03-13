@@ -22,8 +22,12 @@ public class TourController {
     private TourService tourService;
 
     @GetMapping
-    public Page<TourResponse> getList(@PageableDefault() Pageable pageable) {
-        return tourService.getList(pageable);
+    public Page<TourResponse> getList(
+            @RequestParam(value = "search", required = false) String search,
+            @PageableDefault() Pageable pageable) {
+        return search == null || search.isEmpty()
+                ? tourService.getList(pageable)
+                : tourService.getList(search, pageable);
     }
 
     @GetMapping("/{tourId}")

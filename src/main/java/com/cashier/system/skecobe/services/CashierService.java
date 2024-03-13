@@ -27,7 +27,12 @@ public class CashierService {
     private ValidationService validationService;
 
     public Page<UserResponse> getListCashier(Pageable pageable) {
-        var users = userRepository.findCashierByRole(Role.ROLE_CASHIER, pageable);
+        var users = userRepository.findByRole(Role.ROLE_CASHIER, pageable);
+        return users.map(UserResponse::convertToResponse);
+    }
+
+    public Page<UserResponse> getListCashier(String search, Pageable pageable) {
+        var users = userRepository.findByRoleAndUsernameContaining(Role.ROLE_CASHIER, search, pageable);
         return users.map(UserResponse::convertToResponse);
     }
 

@@ -22,8 +22,12 @@ public class SupplierController {
     private SupplierService supplierService;
 
     @GetMapping
-    public Page<SupplierResponse> getList(@PageableDefault() Pageable pageable) {
-        return supplierService.getList(pageable);
+    public Page<SupplierResponse> getList(
+            @RequestParam(value = "search", required = false) String search,
+            @PageableDefault() Pageable pageable) {
+        return search == null || search.isEmpty()
+                ? supplierService.getList(pageable)
+                : supplierService.getList(search, pageable);
     }
 
     @GetMapping("/{supplierId}")
