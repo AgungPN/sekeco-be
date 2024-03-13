@@ -6,6 +6,7 @@ import com.cashier.system.skecobe.repositories.SupplierRepository;
 import com.cashier.system.skecobe.requests.supplier.CreateSupplierRequest;
 import com.cashier.system.skecobe.requests.supplier.UpdateSupplierRequest;
 import com.cashier.system.skecobe.responses.SupplierResponse;
+import com.cashier.system.skecobe.responses.TourResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,11 @@ public class SupplierService {
 
     public Page<SupplierResponse> getList(Pageable pageable) {
         var suppliers = supplierRepository.findAll(pageable);
+        return suppliers.map(SupplierResponse::convertToResponse);
+    }
+
+    public Page<SupplierResponse> getList(String search, Pageable pageable) {
+        var suppliers = supplierRepository.findByNameContainingOrPhoneContainingOrderByName(search, search, pageable);
         return suppliers.map(SupplierResponse::convertToResponse);
     }
 
