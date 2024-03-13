@@ -2,7 +2,6 @@ package com.cashier.system.skecobe.controllers;
 
 import com.cashier.system.skecobe.requests.supplier.CreateSupplierRequest;
 import com.cashier.system.skecobe.requests.supplier.UpdateSupplierRequest;
-import com.cashier.system.skecobe.responses.ProductResponse;
 import com.cashier.system.skecobe.responses.ResponseHandler;
 import com.cashier.system.skecobe.responses.SupplierResponse;
 import com.cashier.system.skecobe.services.SupplierService;
@@ -13,6 +12,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/suppliers")

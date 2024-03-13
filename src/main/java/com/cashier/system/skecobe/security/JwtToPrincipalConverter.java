@@ -1,6 +1,7 @@
 package com.cashier.system.skecobe.security;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.cashier.system.skecobe.enums.Role;
 import org.springframework.stereotype.Component;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -13,10 +14,11 @@ public class JwtToPrincipalConverter {
                 .map(SimpleGrantedAuthority::new)
                 .toList();
 
+        System.out.println(jwt.getClaim("role").asString());
         return UserPrincipal.builder()
                 .userId( Long.parseLong(jwt.getSubject()) )
                 .username( jwt.getClaim("username").asString() )
-                .role(jwt.getClaim("role").asString())
+                .role(jwt.getClaim("role").as(Role.class))
                 .authorities( authorityList )
                 .build();
     }
