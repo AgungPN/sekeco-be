@@ -1,5 +1,6 @@
 package com.cashier.system.skecobe.entities;
 
+import com.cashier.system.skecobe.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.stereotype.Component;
@@ -31,6 +32,10 @@ public class InvoiceTour {
 
     @Column(nullable = false)
     private int employee;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Status status;
 
     private LocalDate createdAt;
     private LocalDate lastModifiedAt;

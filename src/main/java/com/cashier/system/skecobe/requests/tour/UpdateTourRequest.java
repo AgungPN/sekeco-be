@@ -28,6 +28,4 @@ public class UpdateTourRequest {
     @Size(max = 15, min = 11)
     private String phone;
 
-    @EnumValidator(enumClazz = TourCode.class)
-    private String tourCode;
 }

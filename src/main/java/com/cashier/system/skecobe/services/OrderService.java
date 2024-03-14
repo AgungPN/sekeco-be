@@ -52,7 +52,7 @@ public class OrderService {
             InvoiceTour response = tourService.getOneById(invoiceTourId);
             UpdateInvoiceTourRequest request = new UpdateInvoiceTourRequest();
             request.setInvoiceTourId(response.getInvoiceTourId());
-            request.setTourId(response.getTourId());
+            request.setTourId(response.getTourId().getTourId());
             request.setUnitBus(response.getUnitBus());
             request.setIncome(response.getIncome() + totalPrice);
             request.setEmployee(response.getEmployee());

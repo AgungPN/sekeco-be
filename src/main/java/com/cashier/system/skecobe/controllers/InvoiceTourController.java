@@ -1,5 +1,6 @@
 package com.cashier.system.skecobe.controllers;
 
+import com.cashier.system.skecobe.enums.Status;
 import com.cashier.system.skecobe.requests.invoiceTour.CreateInvoiceTourRequest;
 import com.cashier.system.skecobe.requests.invoiceTour.UpdateInvoiceTourRequest;
 import com.cashier.system.skecobe.responses.ResponseHandler;
@@ -18,11 +19,17 @@ public class InvoiceTourController {
 
     private final InvoiceTourService tourService;
 
+    @GetMapping("/status")
+    public ResponseEntity<Object> getList(@RequestParam("status") String status){
+        var response = tourService.getTourWithStatusNow(Status.valueOf(status));
+        return ResponseHandler.responseWithoutMessage(response, HttpStatus.OK);
+    }
+
     @GetMapping("/{invoiceTourId}")
     public ResponseEntity<Object> getOne(@PathVariable Long invoiceTourId) {
-        var productResponse = tourService.getOneById(invoiceTourId);
+        var response = tourService.getOneById(invoiceTourId);
 
-        return ResponseHandler.responseWithoutMessage(productResponse, HttpStatus.OK);
+        return ResponseHandler.responseWithoutMessage(response, HttpStatus.OK);
     }
     @PostMapping("/save")
     public ResponseEntity<Object> create(@RequestBody CreateInvoiceTourRequest tourRequest) throws IOException{

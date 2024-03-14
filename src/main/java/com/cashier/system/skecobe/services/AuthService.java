@@ -35,6 +35,7 @@ public class AuthService {
                 .roles(principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList())
                 .build());
 
+        System.out.println(user.getRole().getClass());
         return LoginResponse.builder()
                 .token(token)
                 .username(principal.getUsername())

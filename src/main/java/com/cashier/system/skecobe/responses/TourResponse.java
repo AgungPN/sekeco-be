@@ -14,7 +14,6 @@ public class TourResponse {
     private String name;
     private String address;
     private String phone;
-    private TourCode tourCode;
     private LocalDate createdAt;
     private LocalDate updatedAt;
 
@@ -24,7 +23,6 @@ public class TourResponse {
                 .name(tour.getName())
                 .address(tour.getAddress())
                 .phone(tour.getPhone())
-                .tourCode(tour.getTourCode())
                 .createdAt(tour.getCreatedAt())
                 .updatedAt(tour.getUpdatedAt())
                 .build();

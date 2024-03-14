@@ -31,22 +31,18 @@ public class TourService {
         return tours.map(TourResponse::convertToResponse);
     }
 
-    public TourResponse findById(Long tourId) {
+    public Tour findById(Long tourId) {
         return tourRepository.findById(tourId)
-                .map(TourResponse::convertToResponse)
                 .orElseThrow(() -> new NotFoundException("Tour"));
     }
 
     public TourResponse save(CreateTourRequest createTourRequest) {
         validationService.validate(createTourRequest);
 
-        TourCode tourCode = TourCode.valueOf(createTourRequest.getTourCode());
-
         Tour tour = Tour.builder()
                 .name(createTourRequest.getName())
                 .address(createTourRequest.getAddress())
                 .phone(createTourRequest.getPhone())
-                .tourCode(tourCode)
                 .build();
 
         tourRepository.save(tour);
@@ -60,12 +56,9 @@ public class TourService {
 
         validationService.validate(tourRequest);
 
-        TourCode tourCode = TourCode.valueOf(tourRequest.getTourCode());
-
         tour.setName(tourRequest.getName());
         tour.setAddress(tourRequest.getAddress());
         tour.setPhone(tourRequest.getPhone());
-        tour.setTourCode(tourCode);
         tourRepository.save(tour);
 
         return TourResponse.convertToResponse(tour);

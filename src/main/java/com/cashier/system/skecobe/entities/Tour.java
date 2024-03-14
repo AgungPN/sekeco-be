@@ -18,7 +18,7 @@ public class Tour {
     @Column(nullable = false)
     private Long tourId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column(nullable = false)
@@ -26,10 +26,6 @@ public class Tour {
 
     @Column(nullable = false)
     private String phone;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private TourCode tourCode;
 
     private LocalDate createdAt;
     private LocalDate updatedAt;

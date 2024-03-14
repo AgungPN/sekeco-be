@@ -30,6 +30,4 @@ public class CreateTourRequest {
     @Size(min = 11, max = 15)
     private String phone;
 
-    @EnumValidator(enumClazz = TourCode.class)
-    private String tourCode;
 }

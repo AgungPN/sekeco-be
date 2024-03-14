@@ -16,7 +16,7 @@ import org.springframework.validation.annotation.Validated;
 public class UpdateInvoiceTourRequest {
     private Long invoiceTourId;
 
-    private Tour tourId;
+    private Long tourId;
     @NotNull
     @Positive
     private int unitBus;
