@@ -6,6 +6,8 @@ import com.cashier.system.skecobe.enums.Status;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDate;
+
 @Getter
 @Builder
 public class InvoiceTourResponse {
@@ -16,6 +18,8 @@ public class InvoiceTourResponse {
     private Long income;
     private int employee;
     private Status status;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 
     public static InvoiceTourResponse convertToResponse(InvoiceTour tour) {
         return InvoiceTourResponse.builder()
@@ -25,6 +29,8 @@ public class InvoiceTourResponse {
                 .income(tour.getIncome())
                 .employee(tour.getEmployee())
                 .status(tour.getStatus())
+                .createdAt(tour.getCreatedAt())
+                .updatedAt(tour.getLastModifiedAt())
                 .build();
     }
 

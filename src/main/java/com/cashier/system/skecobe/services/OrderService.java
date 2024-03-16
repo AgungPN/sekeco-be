@@ -8,6 +8,8 @@ import com.cashier.system.skecobe.requests.invoiceTour.UpdateInvoiceTourRequest;
 import com.cashier.system.skecobe.requests.order.OrderDetailsRequest;
 import com.cashier.system.skecobe.requests.order.OrderRequest;
 import com.cashier.system.skecobe.responses.InvoiceTourResponse;
+import com.cashier.system.skecobe.responses.OrderDetailsResponse;
+import com.cashier.system.skecobe.responses.OrderResponse;
 import com.cashier.system.skecobe.responses.UserResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,7 +28,7 @@ public class OrderService {
     private ProductService productService;
 
     @Transactional()
-    public Order saveOrder(OrderRequest orderRequest){
+    public OrderResponse saveOrder(OrderRequest orderRequest){
         validationService.validate(orderRequest);
 
         Order order = new Order();
@@ -42,9 +44,8 @@ public class OrderService {
                 .map((OrderDetailsRequest orderDetailsRequest) -> mapToOrderDetails(orderDetailsRequest, order))
                 .toList();
         order.setOrderDetails(orderDetailsList);
-
         orderRepository.save(order);
-        return order;
+        return OrderResponse.convertToResponse(order);
     }
 
     private InvoiceTour invoiceTour(Long invoiceTourId, Long totalPrice){
@@ -64,7 +65,7 @@ public class OrderService {
 
     }
 
-    private OrderDetails mapToOrderDetails(OrderDetailsRequest request, Order order){
+    private OrderDetails mapToOrderDetails(OrderDetailsRequest request, Order order ){
         return OrderDetails.builder()
                 .orderId(order)
                 .productId(productService.getOneById(request.getProductId()))

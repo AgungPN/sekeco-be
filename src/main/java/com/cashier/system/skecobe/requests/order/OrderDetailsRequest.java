@@ -14,7 +14,6 @@ import org.springframework.validation.annotation.Validated;
 @NoArgsConstructor
 @Validated
 public class OrderDetailsRequest {
-
     private Long productId;
 
     private Long profitSharingAmount;
