@@ -40,6 +40,7 @@ public class AuthService {
                 .token(token)
                 .username(principal.getUsername())
                 .role(user.getRole())
+                .userId(user.getUserId())
                 .build();
     }
 }
