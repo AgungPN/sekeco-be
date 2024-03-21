@@ -16,6 +16,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/products")
@@ -31,6 +32,11 @@ public class ProductController {
         return search == null || search.isEmpty()
                 ? productService.getList(pageable)
                 : productService.getList(search, pageable);
+    }
+
+    @GetMapping("/all")
+    public List<ProductResponse> getAllProducts() {
+        return productService.getAllProducts();
     }
 
     @GetMapping("/{productId}")

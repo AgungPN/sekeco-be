@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -29,7 +30,12 @@ public class ProductService {
         return products.map(ProductResponse::convertToResponse);
     }
 
-        public Product getOneById(Long productId) {
+    public List<ProductResponse> getAllProducts() {
+        var products = productRepository.findAll();
+        return products.stream().map(ProductResponse::convertToResponse).toList();
+    }
+
+    public Product getOneById(Long productId) {
         return productRepository.findById(productId)
                 .orElseThrow(() -> new NotFoundException("Product"));
     }
