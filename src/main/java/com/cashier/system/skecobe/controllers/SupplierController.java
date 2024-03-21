@@ -31,6 +31,12 @@ public class SupplierController {
                 : supplierService.getList(search, pageable);
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<Object>  getAll() {
+        var products =  supplierService.getListNoPaginate();
+        return ResponseHandler.responseWithoutMessage(products,HttpStatus.OK);
+    }
+
     @GetMapping("/{supplierId}")
     public ResponseEntity<Object> getOne(@PathVariable Long supplierId) {
         var supplierResponse = supplierService.getOneById(supplierId);
