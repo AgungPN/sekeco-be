@@ -7,6 +7,8 @@ import com.cashier.system.skecobe.services.OrderService;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import lombok.AllArgsConstructor;
+import net.sf.jasperreports.engine.JRException;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Locale;
 
@@ -28,9 +31,21 @@ public class OrderController {
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> placeOrder(@RequestBody OrderRequest orderRequest, Locale locale) {
-        var orderResponse = orderService.saveOrder(orderRequest);
-        return ResponseHandler.generateResponse("Order Create", orderResponse, HttpStatus.CREATED);
+    public ResponseEntity<InputStreamResource> placeOrder(@RequestBody OrderRequest orderRequest, Locale locale) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=report.pdf");
+
+            byte[] reportBytes = orderService.saveOrder(orderRequest);
+            return ResponseEntity
+                    .ok()
+                    .headers(headers)
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .body(new InputStreamResource(new ByteArrayInputStream(reportBytes)));
+        } catch (JRException e) {
+            throw new RuntimeException(e);
+        }
+//        return ResponseHandler.generateResponse("Order Create", orderResponse, HttpStatus.CREATED);
 //        Context context = new Context();
 //        context.setVariable("order", order);
 //        context.setLocale(locale);

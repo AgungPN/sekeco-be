@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvoiceTour" pageWidth="595" pageHeight="595" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ba4a8e1c-4db1-4caf-aa72-61340e13ab8e">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="unitBus" class="java.lang.Integer"/>
+	<parameter name="omset" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[25]]></defaultValueExpression>
+	</parameter>
+	<parameter name="omsetDis" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[$P{omset} / $P{disc}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tour" class="java.lang.Long"/>
+	<parameter name="kedatangan" class="java.lang.Long"/>
+	<parameter name="employee" class="java.lang.Integer"/>
+	<parameter name="total" class="java.lang.Long"/>
+	<parameter name="disc" class="java.lang.Integer"/>
+	<parameter name="tanggal" class="java.util.Date"/>
+	<parameter name="tourName" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="productName" class="java.lang.String"/>
+	<field name="profitSharing" class="java.lang.String"/>
+	<field name="quantity" class="java.lang.String"/>
+	<field name="subTotal" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="120" y="0" width="315" height="30" uuid="25d9b59f-4fba-424a-9f67-f322e606c72b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rumah Makan Sekecho]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="7" y="0" width="540" height="20" uuid="e4dd4324-3fbb-43eb-a900-520697c53936"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Beroken, Banyukuning, Bandungan, Kabupaten Semarang, Jawa Tengah 50614 Telp. 081327168270]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="91" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="50" height="20" uuid="0ecd1862-cf6f-43c4-9813-c3d96094e4c8"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[No. Tour :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="10" width="30" height="20" uuid="a2391f11-1481-41ec-b0c2-c1356beb8f2b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[PO :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="10" width="50" height="20" uuid="339b219c-660f-4845-a47d-bd3609ca6cfd"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Unit Bus :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="50" height="20" uuid="94bc32a2-4735-4de8-9903-fd7019c9a30d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Omset	  :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="10" width="70" height="20" uuid="830c5cf4-cbe8-44ce-8ade-39e128761e0d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tour}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="40" width="110" height="20" uuid="d404a909-57f0-490f-890d-70195a2799fc"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{omset}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="70" width="30" height="20" uuid="e8cd8c4c-fd79-4e81-ab91-24d139133e2c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Disc]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="30" y="70" width="30" height="20" uuid="bf3e2393-82f5-4125-a6bb-c88faab11439"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["(" + $P{disc} + ")"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="10" width="100" height="20" uuid="fcb090a0-2c74-493d-96ab-bafc3ef0eb9a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tourName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="10" width="70" height="20" uuid="5e203c57-6b95-4b86-850b-5144bb6ac698"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{unitBus}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="460" y="10" width="90" height="20" uuid="15b43ad8-6e47-4f0e-a7e4-93c624d3bd14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="70" width="100" height="20" uuid="1d3306f5-12a0-4833-8cbc-988f692e5d8f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{omsetDis}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="300" height="20" uuid="d514b1ca-a42e-4774-80e3-ea3fa4f7ea1b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3ee0dc12-a9e9-4339-8ac8-fc11ca66726a"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{productName} + " " + $F{profitSharing} + " " + $F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="0" width="100" height="20" uuid="0c0a60df-1f2d-4205-9326-8664a6fefb12">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="181801f0-c940-432b-86ca-52f6c17d71ef"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subTotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="99" splitType="Stretch">
+			<staticText>
+				<reportElement x="11" y="76" width="89" height="19" uuid="b0214786-5db7-42a6-b2c0-8cdce6c185da"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[(Crew)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="207" y="76" width="89" height="19" uuid="9a5ca37d-6bc9-4090-ba1f-b27e9b57385d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[(Tour Leader)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="456" y="76" width="89" height="19" uuid="6305a8c0-1ee7-426e-af04-c6c281aa9450"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[(Cashier)]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="134" splitType="Stretch">
+			<textField>
+				<reportElement x="450" y="10" width="100" height="19" uuid="6f64ac55-b677-4970-9ab5-707ca25985fc"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="8" width="39" height="19" uuid="170ef9a1-114e-4c3a-badb-593de53ac191"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Total :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="39" width="59" height="19" uuid="e0adc870-52a1-4f05-bc75-041d73a741a3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Pembagian]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="58" width="59" height="19" uuid="1cf4526d-b11f-4483-9029-1d5af419acac"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Employee]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="60" y="58" width="100" height="19" uuid="c2eb28a2-3003-4a5c-be52-f52bd587eb2a"/>
+				<textFieldExpression><![CDATA["("+$P{employee}+ ")"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="451" y="60" width="100" height="19" uuid="2666b776-819a-4017-822f-a1a1ffcdff9f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total} / $P{employee}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="77" width="89" height="19" uuid="2a75d2e8-d397-45e6-a89a-5cec9fff5fca"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Uang Kedatangan]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="96" width="160" height="16" uuid="8bca5ce1-5b4d-40f8-bf66-3ea79b4395bf"/>
+				<textFieldExpression><![CDATA[$P{kedatangan} + " x " + $P{unitBus}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="451" y="98" width="100" height="15" uuid="88520906-a935-4017-9e86-7f8248fb05c4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{kedatangan} * $P{unitBus}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="112" width="89" height="19" uuid="65836ff0-f48e-4768-86c9-6e81c33130b0"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Total Pendapatan :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="451" y="114" width="100" height="18" uuid="f1912bf7-cbb1-4d68-b4f0-6e6ecc90d51d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{total} + ($P{kedatangan} * $P{unitBus})]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

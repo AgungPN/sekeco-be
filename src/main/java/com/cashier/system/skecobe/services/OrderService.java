@@ -11,7 +11,9 @@ import com.cashier.system.skecobe.responses.InvoiceTourResponse;
 import com.cashier.system.skecobe.responses.OrderDetailsResponse;
 import com.cashier.system.skecobe.responses.OrderResponse;
 import com.cashier.system.skecobe.responses.UserResponse;
+import com.cashier.system.skecobe.utils.ReportManager;
 import lombok.AllArgsConstructor;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,8 +30,9 @@ public class OrderService {
     private ProductService productService;
 
     @Transactional()
-    public OrderResponse saveOrder(OrderRequest orderRequest){
+    public byte[] saveOrder(OrderRequest orderRequest) throws JRException {
         validationService.validate(orderRequest);
+        ReportManager.getInstance().compileReport();
 
         Order order = new Order();
 
@@ -45,7 +48,7 @@ public class OrderService {
                 .toList();
         order.setOrderDetails(orderDetailsList);
         orderRepository.save(order);
-        return OrderResponse.convertToResponse(order);
+        return ReportManager.getInstance().printReportPayment(OrderResponse.convertToResponse(order));
     }
 
     private InvoiceTour invoiceTour(Long invoiceTourId, Long totalPrice){
