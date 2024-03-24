@@ -28,11 +28,17 @@ public class PurchaseService {
     private PurchaseRepository purchaseRepository;
     private PurchaseDetailRepository purchaseDetailRepository;
 
-    public void save(CreatePurchaseRequest productRequest) {
+    public void save(CreatePurchaseRequest productRequest) throws Exception {
 
         AtomicLong totalPricePurchase = new AtomicLong(0L);
 
         validationService.validate(productRequest);
+
+        if (
+                (productRequest.getExistingProducts() != null && productRequest.getExistingProducts().isEmpty()) && (productRequest.getNewProducts() != null && productRequest.getNewProducts().isEmpty())
+        ) {
+            throw new Exception("You must provide at least one product");
+        }
 
         Supplier supplier = supplierService.findById(productRequest.getSupplierId());
         List<Product> newProducts = new ArrayList<>();

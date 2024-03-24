@@ -49,4 +49,12 @@ public class RestAdviceController {
                 HttpStatus.NOT_FOUND
         );
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> notFoundException(Exception e) {
+        return ResponseHandler.errorResponse(
+                Collections.singletonList(e.getMessage()),
+                HttpStatus.BAD_REQUEST
+        );
+    }
 }

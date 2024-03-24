@@ -22,7 +22,7 @@ public class PurchaseController {
     private PurchaseService purchaseService;
 
     @PostMapping
-    public ResponseEntity<Object> create(@RequestBody CreatePurchaseRequest productRequest){
+    public ResponseEntity<Object> create(@RequestBody CreatePurchaseRequest productRequest) throws Exception {
          purchaseService.save(productRequest);
         return ResponseHandler.generateResponse(
                 "Product created", productRequest, HttpStatus.CREATED

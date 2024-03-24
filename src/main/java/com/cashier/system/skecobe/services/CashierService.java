@@ -68,20 +68,23 @@ public class CashierService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("User"));
 
-        if (userRequest.getPassword().length() < 8) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Password must be at least 8 characters long");
-        }
-
-        if (!userRequest.getPassword().equals(userRequest.getConfirmPassword())) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Password and Confirm Password must be the same");
-        }
-
         validationService.validate(userRequest);
 
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+        if (!userRequest.getPassword().isBlank()) {
+            if (userRequest.getPassword().length() < 8) {
+                throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Password must be at least 8 characters long");
+            }
+
+            if (!userRequest.getPassword().equals(userRequest.getConfirmPassword())) {
+                throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Password and Confirm Password must be the same");
+            }
+
+            user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+        }
+
         user.setUsername(userRequest.getUsername());
-        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         userRepository.save(user);
 
         return UserResponse.convertToResponse(user);
