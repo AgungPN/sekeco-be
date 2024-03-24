@@ -3,6 +3,8 @@ package com.cashier.system.skecobe.entities;
 import com.cashier.system.skecobe.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -22,6 +24,7 @@ public class InvoiceTour {
 
     @ManyToOne
     @JoinColumn(name = "tourId", referencedColumnName = "tourId")
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private Tour tourId;
 
     @Column(nullable = false)

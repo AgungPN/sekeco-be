@@ -2,6 +2,8 @@ package com.cashier.system.skecobe.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.time.LocalDate;
@@ -17,8 +19,9 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long purchaseId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinColumn(name = "supplierId", referencedColumnName = "supplierId")
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private Supplier supplier;
 
     @Column(nullable = false)

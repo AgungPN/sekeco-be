@@ -2,6 +2,8 @@ package com.cashier.system.skecobe.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
 
@@ -20,10 +22,12 @@ public class OrderDetails {
 
     @ManyToOne(targetEntity = Order.class)
     @JoinColumn(name = "orderId", referencedColumnName = "orderId")
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private Order orderId;
 
-    @ManyToOne
-    @JoinColumn(name = "productId", referencedColumnName = "productId")
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "productId", referencedColumnName = "productId", nullable = true)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private Product productId;
 
     private Long profitSharingAmount;

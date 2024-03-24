@@ -2,6 +2,8 @@ package com.cashier.system.skecobe.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
 
@@ -17,12 +19,14 @@ public class PurchaseDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long purchaseDetailId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "purchaseId", referencedColumnName = "purchaseId")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Purchase purchase;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "productId", referencedColumnName = "productId")
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private Product product;
 
     @Column(nullable = false)
