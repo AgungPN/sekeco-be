@@ -2,6 +2,8 @@ package com.cashier.system.skecobe.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -42,6 +44,7 @@ public class Order {
     private Long refund;
 
     @OneToMany(mappedBy = "orderId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<OrderDetails> orderDetails;
 
     private LocalDate createdAt;
