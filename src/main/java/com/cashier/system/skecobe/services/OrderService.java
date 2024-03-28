@@ -1,16 +1,12 @@
 package com.cashier.system.skecobe.services;
 
 import com.cashier.system.skecobe.entities.*;
-import com.cashier.system.skecobe.repositories.InvoiceTourRepository;
+import com.cashier.system.skecobe.enums.ProfitShared;
 import com.cashier.system.skecobe.repositories.OrderRepository;
-import com.cashier.system.skecobe.requests.invoiceTour.CreateInvoiceTourRequest;
 import com.cashier.system.skecobe.requests.invoiceTour.UpdateInvoiceTourRequest;
 import com.cashier.system.skecobe.requests.order.OrderDetailsRequest;
 import com.cashier.system.skecobe.requests.order.OrderRequest;
-import com.cashier.system.skecobe.responses.InvoiceTourResponse;
-import com.cashier.system.skecobe.responses.OrderDetailsResponse;
 import com.cashier.system.skecobe.responses.OrderResponse;
-import com.cashier.system.skecobe.responses.UserResponse;
 import com.cashier.system.skecobe.utils.ReportManager;
 import lombok.AllArgsConstructor;
 import net.sf.jasperreports.engine.JRException;
@@ -72,7 +68,8 @@ public class OrderService {
         return OrderDetails.builder()
                 .orderId(order)
                 .productId(productService.getOneById(request.getProductId()))
-                .profitSharingAmount(request.getProfitSharingAmount())
+                .profitSharing(request.getProfitSharing())
+                .profitSharedType(ProfitShared.valueOf(request.getProfitSharedType()))
                 .price(request.getPrice())
                 .quantity(request.getQuantity())
                 .subtotal(request.getSubtotal())

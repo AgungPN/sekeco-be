@@ -1,11 +1,6 @@
 package com.cashier.system.skecobe.responses;
 
-import com.cashier.system.skecobe.entities.Order;
 import com.cashier.system.skecobe.entities.OrderDetails;
-import com.cashier.system.skecobe.entities.Product;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -18,7 +13,7 @@ public class OrderDetailsResponse {
     private Long orderDetailId;
     private Long orderId;
     private ProductResponse productId;
-    private Long profitSharingAmount;
+    private Long profitSharing;
     private Long price;
     private int quantity;
     private Long subtotal;
@@ -31,7 +26,7 @@ public class OrderDetailsResponse {
                 .orderDetailId(orderDetails.getOrderDetailId())
                 .orderId(orderDetails.getOrderId().getOrderId())
                 .productId(productResponse)
-                .profitSharingAmount(orderDetails.getProfitSharingAmount())
+                .profitSharing(orderDetails.getProfitSharing())
                 .price(orderDetails.getPrice())
                 .quantity(orderDetails.getQuantity())
                 .subtotal(orderDetails.getSubtotal())
