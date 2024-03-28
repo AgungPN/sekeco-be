@@ -1,11 +1,11 @@
 package com.cashier.system.skecobe.entities;
 
 
+import com.cashier.system.skecobe.enums.ProfitShared;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -26,7 +26,11 @@ public class Product {
 
     private String brand;
 
-    private Long profitSharingAmount;
+    private Long profitSharing;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ProfitShared profitSharedType;
 
     @Column(nullable = false)
     private Long price;

@@ -37,5 +37,8 @@ public class NewProductRequest {
 
     @NotNull
     @Positive
-    private Long profitSharingAmount;
+    private Long profitSharing;
+
+    @NotNull
+    private String profitSharedType;
 }

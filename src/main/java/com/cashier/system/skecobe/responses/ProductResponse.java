@@ -14,7 +14,7 @@ public class ProductResponse {
     private String barcode;
     private String name;
     private String brand;
-    private Long profitSharingAmount;
+    private Long profitSharing;
     private Long price;
     private Integer stock;
     private LocalDate createdAt;
@@ -26,7 +26,7 @@ public class ProductResponse {
                 .barcode(product.getBarcode())
                 .name(product.getName())
                 .brand(product.getBrand())
-                .profitSharingAmount(product.getProfitSharingAmount())
+                .profitSharing(product.getProfitSharing())
                 .price(product.getPrice())
                 .stock(product.getStock())
                 .createdAt(product.getCreatedAt())

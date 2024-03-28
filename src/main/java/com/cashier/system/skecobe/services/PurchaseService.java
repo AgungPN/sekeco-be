@@ -4,6 +4,7 @@ import com.cashier.system.skecobe.entities.Product;
 import com.cashier.system.skecobe.entities.Purchase;
 import com.cashier.system.skecobe.entities.PurchaseDetail;
 import com.cashier.system.skecobe.entities.Supplier;
+import com.cashier.system.skecobe.enums.ProfitShared;
 import com.cashier.system.skecobe.handlers.exceptions.MultipleErrorsException;
 import com.cashier.system.skecobe.handlers.exceptions.NotFoundException;
 import com.cashier.system.skecobe.repositories.ProductRepository;
@@ -11,9 +12,7 @@ import com.cashier.system.skecobe.repositories.PurchaseDetailRepository;
 import com.cashier.system.skecobe.repositories.PurchaseRepository;
 import com.cashier.system.skecobe.requests.purchases.CreatePurchaseRequest;
 import com.cashier.system.skecobe.requests.purchases.product.ExistingProductRequest;
-import jakarta.validation.ValidationException;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -62,7 +61,8 @@ public class PurchaseService {
                         .barcode(newProductDTO.getBarcode())
                         .name(newProductDTO.getName())
                         .brand(newProductDTO.getBrand())
-                        .profitSharingAmount(newProductDTO.getProfitSharingAmount())
+                        .profitSharedType(ProfitShared.valueOf(newProductDTO.getProfitSharedType()))
+                        .profitSharing(newProductDTO.getProfitSharing())
                         .price(newProductDTO.getPriceSell())
                         .stock(newProductDTO.getQuantity())
                         .build();
@@ -95,7 +95,8 @@ public class PurchaseService {
                         .orElseThrow(() -> new NotFoundException("Product"));
 
                 product.setStock(product.getStock() + existingProductDTO.getQuantity());
-                product.setProfitSharingAmount(existingProductDTO.getProfitSharingAmount());
+                product.setProfitSharedType(ProfitShared.valueOf(existingProductDTO.getProfitSharedType()));
+                product.setProfitSharing(existingProductDTO.getProfitSharing());
                 product.setPrice(existingProductDTO.getPriceSell());
                 productRepository.save(product);
 
