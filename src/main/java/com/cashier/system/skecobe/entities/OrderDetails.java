@@ -1,5 +1,6 @@
 package com.cashier.system.skecobe.entities;
 
+import com.cashier.system.skecobe.enums.ProfitShared;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
@@ -30,7 +31,11 @@ public class OrderDetails {
     @OnDelete(action = OnDeleteAction.SET_NULL)
     private Product productId;
 
-    private Long profitSharingAmount;
+    private Long profitSharing;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ProfitShared profitSharedType;
 
     @Column(nullable = false)
     private Long price;
