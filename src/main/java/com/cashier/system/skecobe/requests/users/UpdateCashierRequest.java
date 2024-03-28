@@ -18,11 +18,9 @@ public class UpdateCashierRequest {
     @Size(max = 200)
     private String username;
 
-    @NotBlank
     @Size(max = 200)
     private String password;
 
-    @NotBlank
     @Size(max = 200)
     private String confirmPassword;
 }

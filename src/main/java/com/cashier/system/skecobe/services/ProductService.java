@@ -53,7 +53,7 @@ public class ProductService {
                 .barcode(createProductRequest.getBarcode())
                 .name(createProductRequest.getName())
                 .brand(createProductRequest.getBrand())
-                .profitSharingAmount(createProductRequest.getProfitSharingAmount())
+                .profitSharing(createProductRequest.getProfitSharingAmount())
                 .price(createProductRequest.getPrice())
                 .stock(createProductRequest.getStock())
                 .build();
@@ -71,7 +71,7 @@ public class ProductService {
         product.setName(productRequest.getName());
         product.setBarcode(productRequest.getBarcode());
         product.setBrand(productRequest.getBrand());
-        product.setProfitSharingAmount(productRequest.getProfitSharingAmount());
+        product.setProfitSharing(productRequest.getProfitSharingAmount());
         product.setPrice(productRequest.getPrice());
         product.setStock(productRequest.getStock());
         productRepository.save(product);

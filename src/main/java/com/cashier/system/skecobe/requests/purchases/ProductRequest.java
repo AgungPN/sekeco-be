@@ -4,5 +4,5 @@ public class ProductRequest {
     private Long priceBuy;
     private Long priceSell;
     private Integer quantity;
-    private Long profitSharingAmount;
+    private Long profitSharing;
 }
