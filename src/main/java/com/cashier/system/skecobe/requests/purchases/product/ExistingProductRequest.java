@@ -25,7 +25,6 @@ public class ExistingProductRequest {
     @Positive
     private Integer quantity;
 
-    @NotNull
     @Positive
     private Long profitSharingAmount;
 }

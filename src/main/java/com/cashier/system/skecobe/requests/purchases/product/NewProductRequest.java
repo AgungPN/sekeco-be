@@ -35,7 +35,6 @@ public class NewProductRequest {
     @Positive
     private Integer quantity;
 
-    @NotNull
     @Positive
     private Long profitSharingAmount;
 }

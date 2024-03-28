@@ -45,28 +45,11 @@ public class OrderController {
         } catch (JRException e) {
             throw new RuntimeException(e);
         }
-//        return ResponseHandler.generateResponse("Order Create", orderResponse, HttpStatus.CREATED);
-//        Context context = new Context();
-//        context.setVariable("order", order);
-//        context.setLocale(locale);
-//        String orderHtml = templateEngine.process("invoice", context);
-//
-//        /* Setup Source and target I/O streams */
-//        ByteArrayOutputStream target = new ByteArrayOutputStream();
-//
-//        /*Setup converter properties. */
-//        ConverterProperties converterProperties = new ConverterProperties();
-//        converterProperties.setBaseUri("http://localhost:3001");
-//        /* Call convert method */
-//        HtmlConverter.convertToPdf(orderHtml, target, converterProperties);
-//
-//        /* extract output as bytes */
-//        byte[] bytes = target.toByteArray();
-//
-//        /* Send the response as downloadable PDF */
-//        return ResponseEntity.ok()
-//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=order.pdf")
-//                .contentType(MediaType.APPLICATION_PDF)
-//                .body(bytes);
+    }
+
+    @GetMapping("/invoiceTourId")
+    public ResponseEntity<Object> getOrderByInvoiceTourId(@RequestParam("invoiceTourId") Long invoiceTourId){
+        var response = orderService.getOrderByInvoiceTourId(invoiceTourId);
+        return ResponseHandler.responseWithoutMessage(response, HttpStatus.OK);
     }
 }

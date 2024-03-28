@@ -79,4 +79,10 @@ public class OrderService {
                 .build();
     }
 
+    public List<OrderResponse> getOrderByInvoiceTourId(Long invoiceTourId){
+        InvoiceTour tour = tourService.getOneById(invoiceTourId);
+        List<Order>  orders = orderRepository.findByInvoiceTourId(tour);
+        return orders.stream().map(OrderResponse::convertToResponse).toList();
+    }
+
 }

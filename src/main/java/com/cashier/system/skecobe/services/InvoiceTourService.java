@@ -32,7 +32,14 @@ public class InvoiceTourService {
                 .orElseThrow(() -> new NotFoundException("Invoice Tour"));
     }
 
-    public List<InvoiceTourResponse> getTourWithStatusNow(Status status) {
+    public InvoiceTourResponse getTourWithStatusAndTourId(Status status, Long tourId){
+        Tour tour = tourService.findById(tourId);
+        var response = invoiceTourRepository.findByStatusOrTourId(status, tour);
+        return (response != null)
+                ? InvoiceTourResponse.convertToResponse(response)
+                : null;
+    }
+    public List<InvoiceTourResponse> getTourWithStatus(Status status) {
         List<InvoiceTour> invoiceTours = invoiceTourRepository.findByStatus(status);
         return invoiceTours.stream().map(InvoiceTourResponse::convertToResponse).toList();
     }

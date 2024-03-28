@@ -3,6 +3,7 @@ package com.cashier.system.skecobe.controllers;
 import com.cashier.system.skecobe.enums.Status;
 import com.cashier.system.skecobe.requests.invoiceTour.CreateInvoiceTourRequest;
 import com.cashier.system.skecobe.requests.invoiceTour.UpdateInvoiceTourRequest;
+import com.cashier.system.skecobe.responses.InvoiceTourResponse;
 import com.cashier.system.skecobe.responses.ResponseHandler;
 import com.cashier.system.skecobe.services.InvoiceTourService;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,13 @@ public class InvoiceTourController {
 
     @GetMapping("/status")
     public ResponseEntity<Object> getList(@RequestParam("status") String status){
-        var response = tourService.getTourWithStatusNow(Status.valueOf(status));
+        var response = tourService.getTourWithStatus(Status.valueOf(status));
+        return ResponseHandler.responseWithoutMessage(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/status/tourID")
+    public ResponseEntity<Object> getStatusInTourId(@RequestParam("status") String status, @RequestParam("tourId") Long tourId){
+        var response = tourService.getTourWithStatusAndTourId(Status.valueOf(status), tourId);
         return ResponseHandler.responseWithoutMessage(response, HttpStatus.OK);
     }
 
