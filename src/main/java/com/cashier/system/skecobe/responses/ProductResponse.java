@@ -2,6 +2,7 @@ package com.cashier.system.skecobe.responses;
 
 
 import com.cashier.system.skecobe.entities.Product;
+import com.cashier.system.skecobe.enums.ProfitShared;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -14,6 +15,7 @@ public class ProductResponse {
     private String barcode;
     private String name;
     private String brand;
+    private ProfitShared profitSharedType;
     private Long profitSharing;
     private Long price;
     private Integer stock;
@@ -27,6 +29,7 @@ public class ProductResponse {
                 .name(product.getName())
                 .brand(product.getBrand())
                 .profitSharing(product.getProfitSharing())
+                .profitSharedType(product.getProfitSharedType())
                 .price(product.getPrice())
                 .stock(product.getStock())
                 .createdAt(product.getCreatedAt())

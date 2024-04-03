@@ -1,6 +1,7 @@
 package com.cashier.system.skecobe.responses;
 
 import com.cashier.system.skecobe.entities.OrderDetails;
+import com.cashier.system.skecobe.enums.ProfitShared;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -14,6 +15,7 @@ public class OrderDetailsResponse {
     private Long orderId;
     private ProductResponse productId;
     private Long profitSharing;
+    private ProfitShared profitSharedType;
     private Long price;
     private int quantity;
     private Long subtotal;
@@ -27,6 +29,7 @@ public class OrderDetailsResponse {
                 .orderId(orderDetails.getOrderId().getOrderId())
                 .productId(productResponse)
                 .profitSharing(orderDetails.getProfitSharing())
+                .profitSharedType(orderDetails.getProfitSharedType())
                 .price(orderDetails.getPrice())
                 .quantity(orderDetails.getQuantity())
                 .subtotal(orderDetails.getSubtotal())

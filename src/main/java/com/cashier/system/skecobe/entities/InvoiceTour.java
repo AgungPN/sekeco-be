@@ -31,7 +31,7 @@ public class InvoiceTour {
     private int unitBus;
 
     @Column(nullable = false)
-    private Long income;
+    private Long profitSharing;
 
     @Column(nullable = false)
     private int employee;

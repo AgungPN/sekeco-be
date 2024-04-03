@@ -1,11 +1,13 @@
 package com.cashier.system.skecobe.utils;
 
+import com.cashier.system.skecobe.requests.invoiceTour.InvoiceTourRequestToReport;
 import com.cashier.system.skecobe.responses.OrderDetailToReport;
 import com.cashier.system.skecobe.responses.OrderResponse;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayOutputStream;
@@ -50,6 +52,25 @@ public class ReportManager {
         }
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
         JasperPrint print = JasperFillManager.fillReport(invoiceCashier, parametermeter, dataSource);
+        byte[] pdfBytes = exportPdf(print);
+        return pdfBytes;
+    }
+
+    public byte[] printReportInvoiceTour(InvoiceTourRequestToReport data) throws JRException {
+        Map parametermeter = new HashMap();
+        parametermeter.put("unitBus", data.getUnitBus());
+        parametermeter.put("employeeAmount", data.getEmployeeAmount());
+        parametermeter.put("omset", data.getOmset());
+        parametermeter.put("tourId", data.getTourId());
+        parametermeter.put("employee", data.getEmployee());
+        parametermeter.put("total", data.getTotalProfitSharing());
+        parametermeter.put("tourName", data.getTourName());
+
+        JRBeanCollectionDataSource ProfitSharingAmount = new JRBeanCollectionDataSource(data.getProfitSharingAmounts());
+        JRBeanCollectionDataSource DiscDataset = new JRBeanCollectionDataSource(data.getProfitSharingPercentages());
+        parametermeter.put("ProfitSharingAmount", ProfitSharingAmount);
+        parametermeter.put("DiscDataset", DiscDataset);
+        JasperPrint print = JasperFillManager.fillReport(invoiceTour, parametermeter, new JREmptyDataSource());
         byte[] pdfBytes = exportPdf(print);
         return pdfBytes;
     }

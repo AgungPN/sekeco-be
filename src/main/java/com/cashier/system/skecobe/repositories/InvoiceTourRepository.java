@@ -12,6 +12,6 @@ import java.util.List;
 
 public interface InvoiceTourRepository extends JpaRepository<InvoiceTour, Long> {
     List<InvoiceTour> findByStatus(Status status);
-    InvoiceTour findByStatusOrTourId(Status status, Tour tourId);
+    InvoiceTour findByStatusAndTourId(Status status, Tour tourId);
     Page<InvoiceTour> findByCreatedAtBetween(Pageable pageable, LocalDate startDate, LocalDate endDate);
 }

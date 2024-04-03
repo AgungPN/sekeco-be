@@ -12,7 +12,7 @@ import java.util.Date;
 @Builder
 public class PurchaseResponse {
     private Long purchaseId;
-    private Supplier supplier;
+    private SupplierResponse supplier;
     private Integer totalItems;
     private Long totalPrice;
     private Integer discount = 0;
@@ -23,7 +23,7 @@ public class PurchaseResponse {
     public  static PurchaseResponse convertToResponse(Purchase purchase){
         return PurchaseResponse.builder()
                 .purchaseId(purchase.getPurchaseId())
-                .supplier(purchase.getSupplier())
+                .supplier(SupplierResponse.convertToResponse(purchase.getSupplier()))
                 .totalItems(purchase.getTotalItems())
                 .totalPrice(purchase.getTotalPrice())
                 .discount(purchase.getDiscount())

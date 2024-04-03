@@ -6,14 +6,19 @@ import com.cashier.system.skecobe.repositories.OrderRepository;
 import com.cashier.system.skecobe.requests.invoiceTour.UpdateInvoiceTourRequest;
 import com.cashier.system.skecobe.requests.order.OrderDetailsRequest;
 import com.cashier.system.skecobe.requests.order.OrderRequest;
+import com.cashier.system.skecobe.responses.OrderDetailsResponse;
 import com.cashier.system.skecobe.responses.OrderResponse;
+import com.cashier.system.skecobe.responses.ProductResponse;
 import com.cashier.system.skecobe.utils.ReportManager;
 import lombok.AllArgsConstructor;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -33,7 +38,7 @@ public class OrderService {
         Order order = new Order();
 
         order.setUserId(cashierService.findById(orderRequest.getUserId()));
-        order.setInvoiceTourId(invoiceTour(orderRequest.getInvoiceTourId(), orderRequest.getTotalPrice()));
+        order.setInvoiceTourId(invoiceTour(orderRequest.getInvoiceTourId(), orderRequest.getOrderDetailsRequests()));
         order.setTotalItems(orderRequest.getTotalItems());
         order.setTotalPrice(orderRequest.getTotalPrice());
         order.setAmount(orderRequest.getAmount());
@@ -47,14 +52,14 @@ public class OrderService {
         return ReportManager.getInstance().printReportPayment(OrderResponse.convertToResponse(order));
     }
 
-    private InvoiceTour invoiceTour(Long invoiceTourId, Long totalPrice){
+    private InvoiceTour invoiceTour(Long invoiceTourId, List<OrderDetailsRequest> orderDetailsRequest){
         if(invoiceTourId != null){
             InvoiceTour response = tourService.getOneById(invoiceTourId);
             UpdateInvoiceTourRequest request = new UpdateInvoiceTourRequest();
             request.setInvoiceTourId(response.getInvoiceTourId());
             request.setTourId(response.getTourId().getTourId());
             request.setUnitBus(response.getUnitBus());
-            request.setIncome(response.getIncome() + totalPrice);
+            request.setProfitSharing(response.getProfitSharing());
             request.setEmployee(response.getEmployee());
             tourService.update(request);
             return response;

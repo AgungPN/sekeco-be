@@ -20,7 +20,7 @@ public class UpdateInvoiceTourRequest {
     @NotNull
     @Positive
     private int unitBus;
-    private Long income;
+    private Long profitSharing;
     @NotNull
     @Positive
     private int employee;

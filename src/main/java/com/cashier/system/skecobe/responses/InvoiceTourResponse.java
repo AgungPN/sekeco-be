@@ -15,7 +15,7 @@ public class InvoiceTourResponse {
     private Long invoiceTourId;
     private Tour tourId;
     private int unitBus;
-    private Long income;
+    private Long profitSharing;
     private int employee;
     private Status status;
     private LocalDate createdAt;
@@ -26,7 +26,7 @@ public class InvoiceTourResponse {
                 .invoiceTourId(tour.getInvoiceTourId())
                 .tourId(tour.getTourId())
                 .unitBus(tour.getUnitBus())
-                .income(tour.getIncome())
+                .profitSharing(tour.getProfitSharing())
                 .employee(tour.getEmployee())
                 .status(tour.getStatus())
                 .createdAt(tour.getCreatedAt())
