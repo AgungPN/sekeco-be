@@ -17,6 +17,7 @@ public class ProductResponse {
     private String brand;
     private ProfitShared profitSharedType;
     private Long profitSharing;
+    private ProfitShared profitSharedType;
     private Long price;
     private Integer stock;
     private LocalDate createdAt;

@@ -31,6 +31,7 @@ public class OrderDetailsResponse {
                 .profitSharing(orderDetails.getProfitSharing())
                 .profitSharedType(orderDetails.getProfitSharedType())
                 .price(orderDetails.getPrice())
+                .profitSharedType(orderDetails.getProfitSharedType())
                 .quantity(orderDetails.getQuantity())
                 .subtotal(orderDetails.getSubtotal())
                 .createdAt(orderDetails.getCreatedAt())
