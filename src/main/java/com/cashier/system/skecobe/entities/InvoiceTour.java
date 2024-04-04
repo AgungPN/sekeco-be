@@ -23,7 +23,7 @@ public class InvoiceTour {
     private Long invoiceTourId;
 
     @ManyToOne
-    @JoinColumn(name = "tourId", referencedColumnName = "tourId")
+    @JoinColumn(name = "tourId", referencedColumnName = "tourId", nullable = true)
     @OnDelete(action = OnDeleteAction.SET_NULL)
     private Tour tourId;
 

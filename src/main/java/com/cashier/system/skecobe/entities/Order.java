@@ -28,7 +28,7 @@ public class Order {
     private User userId;
 
     @ManyToOne
-    @JoinColumn(name = "invoiceTourId", referencedColumnName = "invoiceTourId")
+    @JoinColumn(name = "invoiceTourId", referencedColumnName = "invoiceTourId", nullable = true)
     private InvoiceTour invoiceTourId;
 
     @Column(nullable = false)

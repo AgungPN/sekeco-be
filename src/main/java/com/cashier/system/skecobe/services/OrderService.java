@@ -6,12 +6,15 @@ import com.cashier.system.skecobe.repositories.OrderRepository;
 import com.cashier.system.skecobe.requests.invoiceTour.UpdateInvoiceTourRequest;
 import com.cashier.system.skecobe.requests.order.OrderDetailsRequest;
 import com.cashier.system.skecobe.requests.order.OrderRequest;
+import com.cashier.system.skecobe.requests.product.UpdateProductRequest;
+import com.cashier.system.skecobe.requests.purchases.ProductRequest;
 import com.cashier.system.skecobe.responses.OrderDetailsResponse;
 import com.cashier.system.skecobe.responses.OrderResponse;
 import com.cashier.system.skecobe.responses.ProductResponse;
 import com.cashier.system.skecobe.utils.ReportManager;
 import lombok.AllArgsConstructor;
 import net.sf.jasperreports.engine.JRException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +29,7 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final ValidationService validationService;
+    @Autowired
     private InvoiceTourService tourService;
     private CashierService cashierService;
     private ProductService productService;
@@ -36,9 +40,11 @@ public class OrderService {
         ReportManager.getInstance().compileReport();
 
         Order order = new Order();
-
+        InvoiceTour getInvoiceTour = getInvoiceTour(orderRequest.getInvoiceTourId());
+        if(getInvoiceTour != null){
+            order.setInvoiceTourId(getInvoiceTour);
+        }
         order.setUserId(cashierService.findById(orderRequest.getUserId()));
-        order.setInvoiceTourId(invoiceTour(orderRequest.getInvoiceTourId(), orderRequest.getOrderDetailsRequests()));
         order.setTotalItems(orderRequest.getTotalItems());
         order.setTotalPrice(orderRequest.getTotalPrice());
         order.setAmount(orderRequest.getAmount());
@@ -48,12 +54,26 @@ public class OrderService {
                 .map((OrderDetailsRequest orderDetailsRequest) -> mapToOrderDetails(orderDetailsRequest, order))
                 .toList();
         order.setOrderDetails(orderDetailsList);
+        for (OrderDetailsRequest request : orderRequest.getOrderDetailsRequests()) {
+            Product product = productService.getOneById(request.getProductId());
+            UpdateProductRequest updateProductRequest = new UpdateProductRequest();
+            updateProductRequest.setId(product.getProductId());
+            updateProductRequest.setBrand(product.getBrand());
+            updateProductRequest.setBarcode(product.getBarcode());
+            updateProductRequest.setName(product.getName());
+            updateProductRequest.setProfitSharing(product.getProfitSharing());
+            updateProductRequest.setProfitSharedType(product.getProfitSharedType().toString());
+            updateProductRequest.setStock(product.getStock() - request.getQuantity());
+            updateProductRequest.setPrice(product.getPrice());
+            productService.update(product.getProductId(), updateProductRequest);
+        }
         orderRepository.save(order);
         return ReportManager.getInstance().printReportPayment(OrderResponse.convertToResponse(order));
     }
 
-    private InvoiceTour invoiceTour(Long invoiceTourId, List<OrderDetailsRequest> orderDetailsRequest){
-        if(invoiceTourId != null){
+    private InvoiceTour getInvoiceTour(Long invoiceTourId){
+        if(invoiceTourId != -1){
+            System.out.println("Invoice id di :"+invoiceTourId.getClass());
             InvoiceTour response = tourService.getOneById(invoiceTourId);
             UpdateInvoiceTourRequest request = new UpdateInvoiceTourRequest();
             request.setInvoiceTourId(response.getInvoiceTourId());
@@ -64,6 +84,7 @@ public class OrderService {
             tourService.update(request);
             return response;
         }else {
+            System.out.println("Invoice id :"+invoiceTourId.getClass());
             return null;
         }
 
