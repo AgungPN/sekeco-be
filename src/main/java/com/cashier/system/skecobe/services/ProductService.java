@@ -1,6 +1,7 @@
 package com.cashier.system.skecobe.services;
 
 import com.cashier.system.skecobe.entities.Product;
+import com.cashier.system.skecobe.enums.ProfitShared;
 import com.cashier.system.skecobe.handlers.exceptions.NotFoundException;
 import com.cashier.system.skecobe.repositories.ProductRepository;
 import com.cashier.system.skecobe.requests.product.CreateProductRequest;
@@ -71,7 +72,8 @@ public class ProductService {
         product.setName(productRequest.getName());
         product.setBarcode(productRequest.getBarcode());
         product.setBrand(productRequest.getBrand());
-        product.setProfitSharing(productRequest.getProfitSharingAmount());
+        product.setProfitSharing(productRequest.getProfitSharing());
+        product.setProfitSharedType(ProfitShared.valueOf(productRequest.getProfitSharedType()));
         product.setPrice(productRequest.getPrice());
         product.setStock(productRequest.getStock());
         productRepository.save(product);

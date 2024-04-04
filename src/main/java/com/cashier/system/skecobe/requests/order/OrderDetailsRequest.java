@@ -17,8 +17,7 @@ import org.springframework.validation.annotation.Validated;
 public class OrderDetailsRequest {
     private Long productId;
 
-    private Long profitSharing;
-    private String profitSharedType;
+    private Long profitSharing;private String profitSharedType;
 
     @NotNull
     @Positive

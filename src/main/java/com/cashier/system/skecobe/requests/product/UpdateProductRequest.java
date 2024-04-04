@@ -2,6 +2,7 @@ package com.cashier.system.skecobe.requests.product;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +13,6 @@ import org.springframework.validation.annotation.Validated;
 @AllArgsConstructor
 @NoArgsConstructor
 @Validated
-@Deprecated
 public class UpdateProductRequest {
     private Long id;
 
@@ -26,15 +26,15 @@ public class UpdateProductRequest {
 
     private String brand;
 
-    @Min(0)
-    private Long profitSharingAmount;
+    @NotNull
+    private String profitSharedType;
 
-    @NotBlank
+    @Min(0)
+    private Long profitSharing;
+
     @Min(0)
     private Long price;
 
     @Min(0)
     private Integer stock;
-
-    private String imageUrl;
 }

@@ -31,13 +31,13 @@ public class PurchaseService {
 
         AtomicLong totalPricePurchase = new AtomicLong(0L);
 
-        validationService.validate(productRequest);
-
         if (
                 (productRequest.getExistingProducts() != null && productRequest.getExistingProducts().isEmpty()) && (productRequest.getNewProducts() != null && productRequest.getNewProducts().isEmpty())
         ) {
             throw new Exception("You must provide at least one product");
         }
+
+        validationService.validate(productRequest);
 
         Supplier supplier = supplierService.findById(productRequest.getSupplierId());
         List<Product> newProducts = new ArrayList<>();
