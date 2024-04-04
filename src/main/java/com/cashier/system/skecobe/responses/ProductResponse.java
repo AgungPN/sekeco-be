@@ -15,7 +15,6 @@ public class ProductResponse {
     private String barcode;
     private String name;
     private String brand;
-    private ProfitShared profitSharedType;
     private Long profitSharing;
     private ProfitShared profitSharedType;
     private Long price;
