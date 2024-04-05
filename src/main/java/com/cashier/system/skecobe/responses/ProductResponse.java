@@ -23,6 +23,9 @@ public class ProductResponse {
     private LocalDate updatedAt;
 
     public static ProductResponse convertToResponse(Product product) {
+        if(product == null){
+            return null;
+        }
         return ProductResponse.builder()
                 .productId(product.getProductId())
                 .barcode(product.getBarcode())

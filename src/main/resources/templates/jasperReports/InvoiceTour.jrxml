@@ -77,13 +77,20 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="32" splitType="Stretch">
+		<band height="60" splitType="Stretch">
 			<staticText>
 				<reportElement x="120" y="0" width="315" height="30" uuid="25d9b59f-4fba-424a-9f67-f322e606c72b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="20" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Rumah Makan Sekecho]]></text>
+				<text><![CDATA[Bundartik]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="30" width="540" height="20" uuid="2be3a2db-9db3-4c01-b672-3e6f9ec0a338"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Pusat Oleh-Oleh Khas Kabupaten Semarang]]></text>
 			</staticText>
 		</band>
 	</title>

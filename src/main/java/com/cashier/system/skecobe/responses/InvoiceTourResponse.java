@@ -22,6 +22,9 @@ public class InvoiceTourResponse {
     private LocalDate updatedAt;
 
     public static InvoiceTourResponse convertToResponse(InvoiceTour tour) {
+        if(tour == null){
+            return null;
+        }
         return InvoiceTourResponse.builder()
                 .invoiceTourId(tour.getInvoiceTourId())
                 .tourId(tour.getTourId())

@@ -19,6 +19,9 @@ public class SupplierResponse {
     private LocalDate updatedAt;
 
     public static SupplierResponse convertToResponse(Supplier supplier) {
+        if(supplier == null){
+            return null;
+        }
         return SupplierResponse.builder()
                 .supplierId(supplier.getSupplierId())
                 .name(supplier.getName())

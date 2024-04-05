@@ -73,7 +73,6 @@ public class OrderService {
 
     private InvoiceTour getInvoiceTour(Long invoiceTourId){
         if(invoiceTourId != -1){
-            System.out.println("Invoice id di :"+invoiceTourId.getClass());
             InvoiceTour response = tourService.getOneById(invoiceTourId);
             UpdateInvoiceTourRequest request = new UpdateInvoiceTourRequest();
             request.setInvoiceTourId(response.getInvoiceTourId());
@@ -84,7 +83,6 @@ public class OrderService {
             tourService.update(request);
             return response;
         }else {
-            System.out.println("Invoice id :"+invoiceTourId.getClass());
             return null;
         }
 

@@ -24,7 +24,7 @@ public class InvoiceTour {
 
     @ManyToOne
     @JoinColumn(name = "tourId", referencedColumnName = "tourId", nullable = true)
-    @OnDelete(action = OnDeleteAction.SET_NULL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Tour tourId;
 
     @Column(nullable = false)

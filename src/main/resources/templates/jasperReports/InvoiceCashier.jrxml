@@ -6,6 +6,7 @@
     <property name="com.jaspersoft.studio.unit.pageWidth" value="mm"/>
     <parameter name="transaksi" class="java.lang.Long"/>
     <parameter name="kasir" class="java.lang.String"/>
+    <parameter name="jam" class="java.lang.String"/>
     <parameter name="totalItems" class="java.lang.Integer"/>
     <parameter name="totalPrice" class="java.lang.Long"/>
     <parameter name="amount" class="java.lang.Long"/>
@@ -21,13 +22,20 @@
         <band splitType="Stretch"/>
     </background>
     <title>
-        <band height="30" splitType="Stretch">
+        <band height="50" splitType="Stretch">
             <staticText>
-                <reportElement x="0" y="0" width="205" height="30" uuid="626161bc-e56c-42f1-87e9-ff3a422197c0"/>
+                <reportElement x="0" y="0" width="205" height="27" uuid="626161bc-e56c-42f1-87e9-ff3a422197c0"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font fontName="SansSerif" size="14" isBold="true"/>
                 </textElement>
-                <text><![CDATA[Rumah Makan Sekecho]]></text>
+                <text><![CDATA[Bundartik]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="20" width="205" height="18" uuid="0ea32892-0929-47f9-99a3-61b250c1559b"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="8"/>
+                </textElement>
+                <text><![CDATA[Pusat Oleh-Oleh Khas Kabupaten Semarang]]></text>
             </staticText>
         </band>
     </title>

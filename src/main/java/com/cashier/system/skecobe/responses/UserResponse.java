@@ -18,6 +18,9 @@ public class UserResponse {
     private LocalDate updatedAt;
 
     public static UserResponse convertToResponse(User cashier) {
+        if(cashier == null){
+            return null;
+        }
         return UserResponse.builder()
                 .userId(cashier.getUserId())
                 .username(cashier.getUsername())
