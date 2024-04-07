@@ -34,13 +34,13 @@ public class OrderController {
     public ResponseEntity<InputStreamResource> placeOrder(@RequestBody OrderRequest orderRequest, Locale locale) {
         try {
             HttpHeaders headers = new HttpHeaders();
-            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=report.pdf");
+            headers.add(HttpHeaders.CONTENT_TYPE, "attachment; filename=report.pdf");
 
             byte[] reportBytes = orderService.saveOrder(orderRequest);
             return ResponseEntity
                     .ok()
                     .headers(headers)
-                    .contentType(MediaType.APPLICATION_PDF)
+                    .contentType(MediaType.valueOf(MediaType.APPLICATION_PDF_VALUE))
                     .body(new InputStreamResource(new ByteArrayInputStream(reportBytes)));
         } catch (JRException e) {
             throw new RuntimeException(e);

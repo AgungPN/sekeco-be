@@ -110,6 +110,7 @@ public class InvoiceTourService {
         invoiceTour.setUnitBus(request.getUnitBus());
         invoiceTour.setProfitSharing(request.getTotalProfitSharing());
         invoiceTour.setEmployee(request.getEmployee());
+        invoiceTour.setStatus(Status.PREVIUSLY);
         invoiceTourRepository.save(invoiceTour);
 
         return ReportManager.getInstance().printReportInvoiceTour(request);
