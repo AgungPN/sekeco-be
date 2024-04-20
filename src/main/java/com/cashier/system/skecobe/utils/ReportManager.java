@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayOutputStream;
