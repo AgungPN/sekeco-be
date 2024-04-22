@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -41,11 +42,11 @@ public class ProductService {
                 .orElseThrow(() -> new NotFoundException("Product"));
     }
 
-    public ProductResponse getOneByBarcode(String barcode) {
-        return productRepository.findByBarcode(barcode)
-                .map(ProductResponse::convertToResponse)
-                .orElseThrow(() -> new NotFoundException("Product"));
-    }
+        public ProductResponse getOneByBarcode(String barcode) {
+            return  productRepository.findByBarcode(barcode)
+                    .map(ProductResponse::convertToResponse)
+                    .orElseThrow(() -> new NotFoundException("Product"));
+        }
 
     public ProductResponse save(CreateProductRequest createProductRequest) throws IOException {
         validationService.validate(createProductRequest);

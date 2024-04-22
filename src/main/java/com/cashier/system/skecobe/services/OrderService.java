@@ -2,6 +2,7 @@ package com.cashier.system.skecobe.services;
 
 import com.cashier.system.skecobe.entities.*;
 import com.cashier.system.skecobe.enums.ProfitShared;
+import com.cashier.system.skecobe.handlers.exceptions.NotFoundException;
 import com.cashier.system.skecobe.repositories.OrderRepository;
 import com.cashier.system.skecobe.requests.invoiceTour.UpdateInvoiceTourRequest;
 import com.cashier.system.skecobe.requests.order.OrderDetailsRequest;
@@ -70,6 +71,14 @@ public class OrderService {
         orderRepository.save(order);
         return ReportManager.getInstance().printReportPayment(OrderResponse.convertToResponse(order));
     }
+    public byte[] getOrder(Long orderId) throws JRException {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new NotFoundException("Product"));
+        ReportManager.getInstance().compileReport();
+
+        return ReportManager.getInstance().printReportPayment(OrderResponse.convertToResponse(order));
+    }
+
+
 
     private InvoiceTour getInvoiceTour(Long invoiceTourId){
         if(invoiceTourId != -1){

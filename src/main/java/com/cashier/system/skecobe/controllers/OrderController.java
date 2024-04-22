@@ -47,6 +47,23 @@ public class OrderController {
         }
     }
 
+    @PostMapping("/print")
+    public ResponseEntity<InputStreamResource> getOrderPDF(@RequestParam Long orderId) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_TYPE, "attachment; filename=report.pdf");
+
+            byte[] reportBytes = orderService.getOrder(orderId);
+            return ResponseEntity
+                    .ok()
+                    .headers(headers)
+                    .contentType(MediaType.valueOf(MediaType.APPLICATION_PDF_VALUE))
+                    .body(new InputStreamResource(new ByteArrayInputStream(reportBytes)));
+        } catch (JRException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @GetMapping("/invoiceTourId")
     public ResponseEntity<Object> getOrderByInvoiceTourId(@RequestParam("invoiceTourId") Long invoiceTourId){
         var response = orderService.getOrderByInvoiceTourId(invoiceTourId);
