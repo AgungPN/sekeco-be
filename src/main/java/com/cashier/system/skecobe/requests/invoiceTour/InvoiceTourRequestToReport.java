@@ -7,6 +7,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class InvoiceTourRequestToReport {
     private Long invoiceTourId;
     private Long tourId;

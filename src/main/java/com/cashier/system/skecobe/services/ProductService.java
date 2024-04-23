@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,17 +24,17 @@ public class ProductService {
     private ValidationService validationService;
 
     public Page<ProductResponse> getList(Pageable pageable) {
-        var products = productRepository.findAll(pageable);
+        var products = productRepository.findByDeletedAtIsNull(pageable);
         return products.map(ProductResponse::convertToResponse);
     }
 
     public Page<ProductResponse> getList(String search, Pageable pageable) {
-        var products = productRepository.findByNameContainingOrBrandContainingOrBarcodeContainingOrderByName(search, search, search, pageable);
+        var products = productRepository.findByDeletedAtIsNullAndNameContainingOrBrandContainingOrBarcodeContainingOrderByName(search, search, search, pageable);
         return products.map(ProductResponse::convertToResponse);
     }
 
     public List<ProductResponse> getAll() {
-        var products = productRepository.findAll();
+        var products = productRepository.findByDeletedAtIsNull();
         return products.stream().map(ProductResponse::convertToResponse).toList();
     }
 
@@ -83,6 +84,10 @@ public class ProductService {
     }
 
     public void deleteById(Long productId) {
-        productRepository.deleteById(productId);
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new NotFoundException("Product"));
+
+        product.setDeletedAt(LocalDate.now());
+        productRepository.save(product);
     }
 }

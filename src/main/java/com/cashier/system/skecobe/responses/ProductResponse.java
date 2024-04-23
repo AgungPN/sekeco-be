@@ -5,16 +5,19 @@ import com.cashier.system.skecobe.entities.Product;
 import com.cashier.system.skecobe.enums.ProfitShared;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Getter
 @Builder
+@Setter
 public class ProductResponse {
     private Long productId;
     private String barcode;
     private String name;
     private String brand;
+    private int count = 0;
     private Long profitSharing;
     private ProfitShared profitSharedType;
     private Long price;

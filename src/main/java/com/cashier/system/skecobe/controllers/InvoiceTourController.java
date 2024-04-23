@@ -26,13 +26,13 @@ public class InvoiceTourController {
     private final InvoiceTourService tourService;
 
     @GetMapping("/status")
-    public ResponseEntity<Object> getList(@RequestParam("status") String status){
+    public ResponseEntity<Object> getList(@RequestParam("status") String status) {
         var response = tourService.getTourWithStatus(Status.valueOf(status));
         return ResponseHandler.responseWithoutMessage(response, HttpStatus.OK);
     }
 
     @GetMapping("/status/tourID")
-    public ResponseEntity<Object> getStatusInTourId(@RequestParam("status") String status, @RequestParam("tourId") Long tourId){
+    public ResponseEntity<Object> getStatusInTourId(@RequestParam("status") String status, @RequestParam("tourId") Long tourId) {
         var response = tourService.getTourWithStatusAndTourId(Status.valueOf(status), tourId);
         return ResponseHandler.responseWithoutMessage(response, HttpStatus.OK);
     }
@@ -43,14 +43,16 @@ public class InvoiceTourController {
 
         return ResponseHandler.responseWithoutMessage(response, HttpStatus.OK);
     }
+
     @GetMapping("/order_details/{invoiceTourId}")
     public ResponseEntity<Object> getOrderDetails(@PathVariable Long invoiceTourId) {
         var response = tourService.getDetail(invoiceTourId);
 
         return ResponseHandler.responseWithoutMessage(response, HttpStatus.OK);
     }
+
     @PostMapping("/print_invoice")
-    public ResponseEntity<InputStreamResource> printInvoice(@RequestBody InvoiceTourRequestToReport request){
+    public ResponseEntity<InputStreamResource> printInvoice(@RequestBody InvoiceTourRequestToReport request) {
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=invoice.pdf");
@@ -66,8 +68,27 @@ public class InvoiceTourController {
             throw new RuntimeException(e);
         }
     }
+
+    @PutMapping("/print_recap_invoice")
+    public ResponseEntity<InputStreamResource> printRecapInvoice(@RequestParam(name = "invoice_tour_id") Long invoiceTourId) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=invoice.pdf");
+
+            byte[] invoiceBytes = tourService.printRecapInvoice(invoiceTourId);
+
+            return ResponseEntity
+                    .ok()
+                    .headers(headers)
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .body(new InputStreamResource(new ByteArrayInputStream(invoiceBytes)));
+        } catch (JRException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @PostMapping("/save")
-    public ResponseEntity<Object> create(@RequestBody CreateInvoiceTourRequest tourRequest) throws IOException{
+    public ResponseEntity<Object> create(@RequestBody CreateInvoiceTourRequest tourRequest) {
         var response = tourService.save(tourRequest);
         return ResponseHandler.generateResponse(
                 "Invoice Tour created", response, HttpStatus.CREATED
@@ -75,7 +96,7 @@ public class InvoiceTourController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Object> update(@RequestBody UpdateInvoiceTourRequest tourRequest) throws IOException{
+    public ResponseEntity<Object> update(@RequestBody UpdateInvoiceTourRequest tourRequest) throws IOException {
         var response = tourService.update(tourRequest);
         return ResponseHandler.generateResponse(
                 "Invoice Tour update", response, HttpStatus.OK

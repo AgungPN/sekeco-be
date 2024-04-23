@@ -116,6 +116,27 @@ public class InvoiceTourService {
         return ReportManager.getInstance().printReportInvoiceTour(request);
     }
 
+    public byte[] printRecapInvoice(Long invoiceTourId) throws JRException {
+        ReportManager.getInstance().compileReport();
+        InvoiceTour invoiceTour = invoiceTourRepository.findById(invoiceTourId)
+                .orElseThrow(() -> new NotFoundException("Invoice Tour"));
+
+        InvoiceTourRequestToReport request = InvoiceTourRequestToReport.builder()
+                .invoiceTourId(invoiceTour.getInvoiceTourId())
+                .tourId(invoiceTour.getTourId().getTourId())
+                .unitBus(invoiceTour.getUnitBus())
+                .employee(invoiceTour.getEmployee())
+                .omset(invoiceTour.getProfitSharing()) // TODO: ini isi apa?
+                .employeeAmount(1.1) // TODO: ini apa?
+                .totalProfitSharing(invoiceTour.getProfitSharing())
+                .profitSharingAmounts(new ArrayList<>())
+                .profitSharingPercentages(new ArrayList<>())
+                .build();
+
+
+        return ReportManager.getInstance().printReportInvoiceTour(request);
+    }
+
     public void deleteById(Long productId) {
         invoiceTourRepository.deleteById(productId);
     }
