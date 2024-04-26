@@ -66,6 +66,25 @@ public class InvoiceTourController {
             throw new RuntimeException(e);
         }
     }
+
+//    public ResponseEntity<InputStreamResource> getInvoicePDF(@RequestParam Long invoiceTourId){
+//        try {
+//            HttpHeaders headers = new HttpHeaders();
+//            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=invoice.pdf");
+//
+//            byte[] invoiceBytes = tourService.getInvoicePDF(invoiceTourId);
+//
+//            return ResponseEntity
+//                    .ok()
+//                    .headers(headers)
+//                    .contentType(MediaType.APPLICATION_PDF)
+//                    .body(new InputStreamResource(new ByteArrayInputStream(invoiceBytes)));
+//        } catch (JRException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+
     @PostMapping("/save")
     public ResponseEntity<Object> create(@RequestBody CreateInvoiceTourRequest tourRequest) throws IOException{
         var response = tourService.save(tourRequest);

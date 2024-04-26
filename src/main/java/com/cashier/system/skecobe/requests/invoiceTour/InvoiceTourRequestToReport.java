@@ -1,8 +1,13 @@
 package com.cashier.system.skecobe.requests.invoiceTour;
 
+import com.cashier.system.skecobe.entities.InvoiceTour;
+import com.cashier.system.skecobe.enums.ProfitShared;
+import com.cashier.system.skecobe.responses.OrderDetailsResponse;
 import lombok.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -10,6 +15,7 @@ import java.util.List;
 public class InvoiceTourRequestToReport {
     private Long invoiceTourId;
     private Long tourId;
+    private Long userId;
     private String tourName;
     private Integer unitBus;
     private Integer employee;
@@ -18,4 +24,5 @@ public class InvoiceTourRequestToReport {
     private Long totalProfitSharing;
     private List<ProfitSharingAmountRequest> profitSharingAmounts;
     private List<ProfitSharingPercentageRequest> profitSharingPercentages;
+
 }

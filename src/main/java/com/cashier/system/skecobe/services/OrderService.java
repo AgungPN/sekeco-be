@@ -78,8 +78,6 @@ public class OrderService {
         return ReportManager.getInstance().printReportPayment(OrderResponse.convertToResponse(order));
     }
 
-
-
     private InvoiceTour getInvoiceTour(Long invoiceTourId){
         if(invoiceTourId != -1){
             InvoiceTour response = tourService.getOneById(invoiceTourId);

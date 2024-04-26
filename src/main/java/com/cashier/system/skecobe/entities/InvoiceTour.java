@@ -27,6 +27,10 @@ public class InvoiceTour {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Tour tourId;
 
+    @ManyToOne
+    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    private User userId;
+
     @Column(nullable = false)
     private int unitBus;
 

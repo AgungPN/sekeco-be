@@ -47,7 +47,7 @@ public class OrderController {
         }
     }
 
-    @PostMapping("/print")
+    @GetMapping("/print")
     public ResponseEntity<InputStreamResource> getOrderPDF(@RequestParam Long orderId) {
         try {
             HttpHeaders headers = new HttpHeaders();

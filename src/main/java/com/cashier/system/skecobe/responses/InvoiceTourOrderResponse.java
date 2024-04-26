@@ -15,7 +15,7 @@ public class InvoiceTourOrderResponse {
 
     public static Map<ProfitShared, Object> groupByProfitSharingType(List<OrderDetailsResponse> data) {
         Map<Long, List<OrderDetailsResponse>> groupedDataPurchase = new HashMap<>();
-        Map<String ,List<OrderDetailsResponse>>groupedDataSharingAmount = new HashMap<>();
+        Map<String ,List<OrderDetailsResponse>> groupedDataSharingAmount = new HashMap<>();
         List<OrderDetailsResponse> groupedDataNone = new ArrayList<>();
         for (OrderDetailsResponse item : data) {
             if (item.getProfitSharedType().equals(ProfitShared.PERCENTAGE)) {

@@ -30,6 +30,7 @@ public class InvoiceTourService {
 
     private InvoiceTourRepository invoiceTourRepository;
     private TourService tourService;
+    private CashierService cashierService;
     private ValidationService validationService;
     private final OrderRepository orderRepository;
 
@@ -111,10 +112,23 @@ public class InvoiceTourService {
         invoiceTour.setProfitSharing(request.getTotalProfitSharing());
         invoiceTour.setEmployee(request.getEmployee());
         invoiceTour.setStatus(Status.PREVIUSLY);
+        invoiceTour.setUserId(cashierService.findById(request.getUserId()));
         invoiceTourRepository.save(invoiceTour);
 
         return ReportManager.getInstance().printReportInvoiceTour(request);
     }
+
+//    public byte[] getInvoicePDF(Long invoiceTourId) throws JRException {
+//        ReportManager.getInstance().compileReport();
+//        InvoiceTour invoiceTour = invoiceTourRepository.findById(invoiceTourId).orElseThrow(() -> new NotFoundException("Product "));
+//        var detail = getDetail(invoiceTourId);
+//        Object profitSharingAmount = detail.get(ProfitShared.SHARING_AMOUNT);
+//        for ()
+////        InvoiceTourRequestToReport requestToReport = InvoiceTourRequestToReport.convertToReport(invoiceTour, detail);
+////        return ReportManager.getInstance().printReportInvoiceTour(requestToReport);
+//    }
+
+
 
     public void deleteById(Long productId) {
         invoiceTourRepository.deleteById(productId);

@@ -47,7 +47,7 @@ public class ReportManager {
         parametermeter.put("refund", data.getRefund());
         List<OrderDetailToReport> list = new ArrayList<>();
         for(int i = 0; i < data.getOrderDetails().size(); i++){
-            list.add(OrderDetailToReport.convertToDataReport(data.getOrderDetails().get(i)));
+            list.add(OrderDetailToReport.convertToDataReport(data.getOrderDetails().get(i), i+1));
         }
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
         JasperPrint print = JasperFillManager.fillReport(invoiceCashier, parametermeter, dataSource);
