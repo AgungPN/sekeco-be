@@ -1,6 +1,7 @@
 package com.cashier.system.skecobe.services;
 
 import com.cashier.system.skecobe.entities.Product;
+import com.cashier.system.skecobe.enums.Status;
 import com.cashier.system.skecobe.repositories.*;
 import com.cashier.system.skecobe.responses.InvoiceTourResponse;
 import com.cashier.system.skecobe.responses.OrderResponse;
@@ -31,7 +32,7 @@ public class RecapService {
     }
 
     public Page<InvoiceTourResponse> getInvoiceTour(Pageable pageable) {
-        var invoiceTour = tourRepository.findAll(pageable);
+        var invoiceTour = tourRepository.findByStatus(pageable, Status.PREVIUSLY);
         return invoiceTour.map(InvoiceTourResponse::convertToResponse);
     }
 
@@ -46,7 +47,7 @@ public class RecapService {
     }
 
     public Page<InvoiceTourResponse> getInvoiceTour(Pageable pageable, LocalDate startDate, LocalDate endDate) {
-        var invoiceTour = tourRepository.findByCreatedAtBetween(pageable, startDate, endDate);
+        var invoiceTour = tourRepository.findByStatusAndCreatedAtBetween(Status.PREVIUSLY, pageable, startDate, endDate);
         return invoiceTour.map(InvoiceTourResponse::convertToResponse);
     }
 
@@ -66,9 +67,9 @@ public class RecapService {
         for (var orderDetail : orderDetails) {
             var product = orderDetail.getProductId();
             if (productOrderCounts.containsKey(product)) {
-                productOrderCounts.put(product, productOrderCounts.get(product) + 1);
+                productOrderCounts.put(product, productOrderCounts.get(product) + orderDetail.getQuantity());
             } else {
-                productOrderCounts.put(product, 1);
+                productOrderCounts.put(product, orderDetail.getQuantity());
             }
         }
 
@@ -89,10 +90,11 @@ public class RecapService {
 
         for (var orderDetail : orderDetails) {
             var product = orderDetail.getProductId();
+            product.setPrice(orderDetail.getPrice());
             if (productOrderCounts.containsKey(product)) {
-                productOrderCounts.put(product, productOrderCounts.get(product) + 1);
+                productOrderCounts.put(product, productOrderCounts.get(product) + orderDetail.getQuantity());
             } else {
-                productOrderCounts.put(product, 1);
+                productOrderCounts.put(product, orderDetail.getQuantity());
             }
         }
 

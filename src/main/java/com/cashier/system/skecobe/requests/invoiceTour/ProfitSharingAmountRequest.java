@@ -13,7 +13,6 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class ProfitSharingAmountRequest {
     private String name;
     private Long profitSharing;

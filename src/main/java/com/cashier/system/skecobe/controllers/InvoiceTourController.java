@@ -3,6 +3,7 @@ package com.cashier.system.skecobe.controllers;
 import com.cashier.system.skecobe.enums.Status;
 import com.cashier.system.skecobe.requests.invoiceTour.CreateInvoiceTourRequest;
 import com.cashier.system.skecobe.requests.invoiceTour.InvoiceTourRequestToReport;
+import com.cashier.system.skecobe.requests.invoiceTour.ReprintInvoiceTourRequest;
 import com.cashier.system.skecobe.requests.invoiceTour.UpdateInvoiceTourRequest;
 import com.cashier.system.skecobe.responses.ResponseHandler;
 import com.cashier.system.skecobe.services.InvoiceTourService;
@@ -67,13 +68,13 @@ public class InvoiceTourController {
         }
     }
 
-    @PutMapping("/print_recap_invoice")
-    public ResponseEntity<InputStreamResource> printRecapInvoice(@RequestParam(name = "invoice_tour_id") Long invoiceTourId) {
+    @PostMapping("/print_recap_invoice")
+    public ResponseEntity<InputStreamResource> printRecapInvoice(@RequestBody ReprintInvoiceTourRequest request) {
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=invoice.pdf");
 
-            byte[] invoiceBytes = tourService.printRecapInvoice(invoiceTourId);
+            byte[] invoiceBytes = tourService.printRecapInvoice(request);
 
             return ResponseEntity
                     .ok()

@@ -10,6 +10,7 @@ import com.cashier.system.skecobe.repositories.InvoiceTourRepository;
 import com.cashier.system.skecobe.repositories.OrderRepository;
 import com.cashier.system.skecobe.requests.invoiceTour.CreateInvoiceTourRequest;
 import com.cashier.system.skecobe.requests.invoiceTour.InvoiceTourRequestToReport;
+import com.cashier.system.skecobe.requests.invoiceTour.ReprintInvoiceTourRequest;
 import com.cashier.system.skecobe.requests.invoiceTour.UpdateInvoiceTourRequest;
 import com.cashier.system.skecobe.responses.InvoiceTourOrderResponse;
 import com.cashier.system.skecobe.responses.InvoiceTourResponse;
@@ -118,21 +119,22 @@ public class InvoiceTourService {
         return ReportManager.getInstance().printReportInvoiceTour(request);
     }
 
-    public byte[] printRecapInvoice(Long invoiceTourId) throws JRException {
+    public byte[] printRecapInvoice(ReprintInvoiceTourRequest tourRequest) throws JRException {
         ReportManager.getInstance().compileReport();
-        InvoiceTour invoiceTour = invoiceTourRepository.findById(invoiceTourId)
+        InvoiceTour invoiceTour = invoiceTourRepository.findById(tourRequest.getInvoiceTourId())
                 .orElseThrow(() -> new NotFoundException("Invoice Tour"));
 
         InvoiceTourRequestToReport request = InvoiceTourRequestToReport.builder()
                 .invoiceTourId(invoiceTour.getInvoiceTourId())
                 .tourId(invoiceTour.getTourId().getTourId())
+                .tourName(invoiceTour.getTourId().getName())
                 .unitBus(invoiceTour.getUnitBus())
                 .employee(invoiceTour.getEmployee())
-                .omset(invoiceTour.getProfitSharing()) // TODO: ini isi apa?
-                .employeeAmount(1.1) // TODO: ini apa?
+                .omset(tourRequest.getOmset())
+                .employeeAmount(Double.valueOf(invoiceTour.getProfitSharing())/Double.valueOf(invoiceTour.getEmployee()))
                 .totalProfitSharing(invoiceTour.getProfitSharing())
-                .profitSharingAmounts(new ArrayList<>())
-                .profitSharingPercentages(new ArrayList<>())
+                .profitSharingAmounts(tourRequest.getProfitSharingAmounts())
+                .profitSharingPercentages(tourRequest.getProfitSharingPercentages())
                 .build();
 
 
