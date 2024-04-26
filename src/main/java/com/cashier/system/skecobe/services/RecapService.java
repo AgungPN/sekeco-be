@@ -13,7 +13,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -56,37 +58,9 @@ public class RecapService {
         return purchase.map(PurchaseResponse::convertToResponse);
     }
 
-    public Page<ProductResponse> getProductOrder(Pageable pageable, LocalDate startDate, LocalDate endDate) {
+    public List<ProductResponse> getProductOrder(Pageable pageable, LocalDate startDate, LocalDate endDate) {
         Map<Product, Integer> productOrderCounts = new HashMap<>();
         var orderDetails = orderDetailRepository.findByCreatedAtBetween(startDate, endDate);
-
-        var products = productRepository.findByProductIdIn(pageable,
-                orderDetails.stream().map(orderDetail -> orderDetail.getProductId().getProductId()).toList()
-        );
-
-        for (var orderDetail : orderDetails) {
-            var product = orderDetail.getProductId();
-            if (productOrderCounts.containsKey(product)) {
-                productOrderCounts.put(product, productOrderCounts.get(product) + orderDetail.getQuantity());
-            } else {
-                productOrderCounts.put(product, orderDetail.getQuantity());
-            }
-        }
-
-        return products.map(product -> {
-            var productResponse = ProductResponse.convertToResponse(product);
-            productResponse.setCount(productOrderCounts.get(product));
-            return productResponse;
-        });
-    }
-
-    public Page<ProductResponse> getProductOrder(Pageable pageable) {
-        Map<Product, Integer> productOrderCounts = new HashMap<>();
-        var orderDetails = orderDetailRepository.findAll();
-
-        var products = productRepository.findByProductIdIn(pageable,
-                orderDetails.stream().map(orderDetail -> orderDetail.getProductId().getProductId()).toList()
-        );
 
         for (var orderDetail : orderDetails) {
             var product = orderDetail.getProductId();
@@ -98,10 +72,47 @@ public class RecapService {
             }
         }
 
-        return products.map(product -> {
+        List<ProductResponse> productResponses = new ArrayList<>();
+        for (var productEntry : productOrderCounts.entrySet()) {
+            var product = productEntry.getKey();
+            var count = productEntry.getValue();
+
+            // Buat ProductResponse untuk setiap produk
             var productResponse = ProductResponse.convertToResponse(product);
-            productResponse.setCount(productOrderCounts.get(product));
-            return productResponse;
-        });
+            productResponse.setCount(count);
+
+            // Tambahkan ProductResponse ke daftar respons
+            productResponses.add(productResponse);
+        }
+
+        return productResponses;
+    }
+
+    public List<ProductResponse> getProductOrder(Pageable pageable) {
+        Map<Product, Integer> productOrderCounts = new HashMap<>();
+        var orderDetails = orderDetailRepository.findAll();
+
+        for (var orderDetail : orderDetails) {
+            var product = orderDetail.getProductId();
+            product.setPrice(orderDetail.getPrice());
+            if (productOrderCounts.containsKey(product)) {
+                productOrderCounts.put(product, productOrderCounts.get(product) + orderDetail.getQuantity());
+            } else {
+                productOrderCounts.put(product, orderDetail.getQuantity());
+            }
+        }
+
+        List<ProductResponse> productResponses = new ArrayList<>();
+        for (var productEntry : productOrderCounts.entrySet()) {
+            var product = productEntry.getKey();
+            var count = productEntry.getValue();
+
+            var productResponse = ProductResponse.convertToResponse(product);
+            productResponse.setCount(count);
+
+            productResponses.add(productResponse);
+        }
+
+        return productResponses;
     }
 }

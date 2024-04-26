@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/recap")
@@ -54,7 +55,7 @@ public class RecapController {
     }
 
     @GetMapping("/products")
-    public Page<ProductResponse> getProducts(
+    public List<ProductResponse> getProducts(
             @PageableDefault() Pageable pageable,
             @RequestParam(value = "startDate", required = false) LocalDate startDate,
             @RequestParam(value = "endDate", required = false) LocalDate endDate) {

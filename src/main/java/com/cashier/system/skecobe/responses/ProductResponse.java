@@ -3,15 +3,15 @@ package com.cashier.system.skecobe.responses;
 
 import com.cashier.system.skecobe.entities.Product;
 import com.cashier.system.skecobe.enums.ProfitShared;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Getter
 @Builder
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductResponse {
     private Long productId;
     private String barcode;
