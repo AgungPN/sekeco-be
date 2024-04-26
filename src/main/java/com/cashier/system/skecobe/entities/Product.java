@@ -82,4 +82,20 @@ public class Product {
             return false;
         return true;
     }
+
+    public static Product copy(Product product) {
+        return Product.builder()
+                .productId(product.productId)
+                .barcode(product.barcode)
+                .name(product.name)
+                .brand(product.brand)
+                .profitSharing(product.profitSharing)
+                .profitSharedType(product.profitSharedType)
+                .price(product.price)
+                .stock(product.stock)
+                .createdAt(product.createdAt)
+                .lastModifiedAt(product.lastModifiedAt)
+                .deletedAt(product.deletedAt)
+                .build();
+    }
 }
