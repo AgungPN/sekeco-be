@@ -67,23 +67,23 @@ public class InvoiceTourController {
         }
     }
 
-//    public ResponseEntity<InputStreamResource> getInvoicePDF(@RequestParam Long invoiceTourId){
-//        try {
-//            HttpHeaders headers = new HttpHeaders();
-//            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=invoice.pdf");
-//
-//            byte[] invoiceBytes = tourService.getInvoicePDF(invoiceTourId);
-//
-//            return ResponseEntity
-//                    .ok()
-//                    .headers(headers)
-//                    .contentType(MediaType.APPLICATION_PDF)
-//                    .body(new InputStreamResource(new ByteArrayInputStream(invoiceBytes)));
-//        } catch (JRException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    @PutMapping("/print_recap_invoice")
+    public ResponseEntity<InputStreamResource> printRecapInvoice(@RequestParam(name = "invoice_tour_id") Long invoiceTourId) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=invoice.pdf");
 
+            byte[] invoiceBytes = tourService.printRecapInvoice(invoiceTourId);
+
+            return ResponseEntity
+                    .ok()
+                    .headers(headers)
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .body(new InputStreamResource(new ByteArrayInputStream(invoiceBytes)));
+        } catch (JRException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @PostMapping("/save")
     public ResponseEntity<Object> create(@RequestBody CreateInvoiceTourRequest tourRequest) throws IOException{

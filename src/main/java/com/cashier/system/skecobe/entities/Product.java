@@ -40,6 +40,7 @@ public class Product {
 
     private LocalDate createdAt;
     private LocalDate lastModifiedAt;
+    private LocalDate deletedAt = null;
 
     @PrePersist
     protected void onCreate() {
