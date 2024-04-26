@@ -65,10 +65,11 @@ public class RecapService {
         for (var orderDetail : orderDetails) {
             var product = orderDetail.getProductId();
             product.setPrice(orderDetail.getPrice());
-            if (productOrderCounts.containsKey(product)) {
-                productOrderCounts.put(product, productOrderCounts.get(product) + orderDetail.getQuantity());
+            Product product2 = Product.copy(product);
+            if (productOrderCounts.containsKey(product2)) {
+                productOrderCounts.put(product2, productOrderCounts.get(product2) + orderDetail.getQuantity());
             } else {
-                productOrderCounts.put(product, orderDetail.getQuantity());
+                productOrderCounts.put(product2, orderDetail.getQuantity());
             }
         }
 
@@ -94,18 +95,22 @@ public class RecapService {
         for (var orderDetail : orderDetails) {
             var product = orderDetail.getProductId();
             product.setPrice(orderDetail.getPrice());
-            if (productOrderCounts.containsKey(product)) {
-                productOrderCounts.put(product, productOrderCounts.get(product) + orderDetail.getQuantity());
+            Product product2 = Product.copy(product);
+            System.out.println(product2.getName() + " " + product2.getPrice());
+            if (productOrderCounts.containsKey(product2)) {
+                productOrderCounts.put(product2, productOrderCounts.get(product2) + orderDetail.getQuantity());
             } else {
-                productOrderCounts.put(product, orderDetail.getQuantity());
+                productOrderCounts.put(product2, orderDetail.getQuantity());
             }
         }
+        System.out.println(orderDetails.size());
 
         List<ProductResponse> productResponses = new ArrayList<>();
         for (var productEntry : productOrderCounts.entrySet()) {
             var product = productEntry.getKey();
             var count = productEntry.getValue();
 
+//            System.out.println(product.getName() + " " + product.getPrice());
             var productResponse = ProductResponse.convertToResponse(product);
             productResponse.setCount(count);
 
