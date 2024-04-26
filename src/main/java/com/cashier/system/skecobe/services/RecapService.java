@@ -76,7 +76,6 @@ public class RecapService {
         for (var productEntry : productOrderCounts.entrySet()) {
             var product = productEntry.getKey();
             var count = productEntry.getValue();
-
             // Buat ProductResponse untuk setiap produk
             var productResponse = ProductResponse.convertToResponse(product);
             productResponse.setCount(count);
