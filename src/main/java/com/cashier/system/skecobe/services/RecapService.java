@@ -96,21 +96,18 @@ public class RecapService {
             var product = orderDetail.getProductId();
             product.setPrice(orderDetail.getPrice());
             Product product2 = Product.copy(product);
-            System.out.println(product2.getName() + " " + product2.getPrice());
             if (productOrderCounts.containsKey(product2)) {
                 productOrderCounts.put(product2, productOrderCounts.get(product2) + orderDetail.getQuantity());
             } else {
                 productOrderCounts.put(product2, orderDetail.getQuantity());
             }
         }
-        System.out.println(orderDetails.size());
 
         List<ProductResponse> productResponses = new ArrayList<>();
         for (var productEntry : productOrderCounts.entrySet()) {
             var product = productEntry.getKey();
             var count = productEntry.getValue();
 
-//            System.out.println(product.getName() + " " + product.getPrice());
             var productResponse = ProductResponse.convertToResponse(product);
             productResponse.setCount(count);
 

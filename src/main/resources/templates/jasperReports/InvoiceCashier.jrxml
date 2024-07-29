@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvoiceCashier" pageWidth="226" pageHeight="1615" columnWidth="206" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" uuid="2e7dbacb-3399-4525-a201-919eb159d569">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvoiceCashier" pageWidth="198" pageHeight="2615" columnWidth="178" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" uuid="2e7dbacb-3399-4525-a201-919eb159d569">
     <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
-    <property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-    <property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit." value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
     <parameter name="transaksi" class="java.lang.Long"/>
     <parameter name="kasir" class="java.lang.String"/>
     <parameter name="jam" class="java.lang.String"/>
@@ -25,14 +30,14 @@
     <title>
         <band height="50" splitType="Stretch">
             <staticText>
-                <reportElement x="0" y="0" width="205" height="27" uuid="626161bc-e56c-42f1-87e9-ff3a422197c0"/>
+                <reportElement x="0" y="0" width="178" height="27" uuid="626161bc-e56c-42f1-87e9-ff3a422197c0"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font fontName="SansSerif" size="14" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Bundartik]]></text>
             </staticText>
             <staticText>
-                <reportElement x="0" y="20" width="205" height="18" uuid="0ea32892-0929-47f9-99a3-61b250c1559b"/>
+                <reportElement x="0" y="20" width="178" height="18" uuid="0ea32892-0929-47f9-99a3-61b250c1559b"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font size="8"/>
                 </textElement>
@@ -43,7 +48,7 @@
     <pageHeader>
         <band height="130" splitType="Stretch">
             <staticText>
-                <reportElement x="0" y="0" width="205" height="50" uuid="26f265bb-9a1e-46b6-a0ae-0c072537a6bf"/>
+                <reportElement x="0" y="0" width="178" height="50" uuid="26f265bb-9a1e-46b6-a0ae-0c072537a6bf"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font size="8"/>
                 </textElement>
@@ -73,7 +78,7 @@ Telp. 081327168270
                 <text><![CDATA[No Transaksi	:]]></text>
             </staticText>
             <staticText>
-                <reportElement x="0" y="110" width="205" height="20" uuid="9fa09901-0dee-43b6-b349-1b844b918e2b">
+                <reportElement x="0" y="110" width="176" height="20" uuid="9fa09901-0dee-43b6-b349-1b844b918e2b">
                     <property name="com.jaspersoft.studio.unit.tabStopWidth" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
@@ -129,7 +134,7 @@ Telp. 081327168270
                 <textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="110" y="20" width="95" height="20" uuid="5feb453d-03f0-47e5-b7f5-7eb99a1cf691"/>
+                <reportElement x="82" y="20" width="95" height="20" uuid="5feb453d-03f0-47e5-b7f5-7eb99a1cf691"/>
                 <textElement textAlignment="Right" verticalAlignment="Middle">
                     <font size="7"/>
                 </textElement>
@@ -175,14 +180,14 @@ Telp. 081327168270
                 <text><![CDATA[Bayar]]></text>
             </staticText>
             <staticText>
-                <reportElement x="52" y="100" width="100" height="20" uuid="9f86c5cf-ce5e-456c-b72e-7411cf79cf91"/>
+                <reportElement x="39" y="100" width="100" height="20" uuid="9f86c5cf-ce5e-456c-b72e-7411cf79cf91"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font size="7" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Terimakasih Telah Berbelanja]]></text>
             </staticText>
             <staticText>
-                <reportElement x="1" y="0" width="205" height="20" uuid="212b847d-635b-4637-a39b-9b1f586936e1">
+                <reportElement x="1" y="0" width="176" height="20" uuid="212b847d-635b-4637-a39b-9b1f586936e1">
                     <property name="com.jaspersoft.studio.unit.tabStopWidth" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
@@ -199,21 +204,21 @@ Telp. 081327168270
                 <textFieldExpression><![CDATA[$P{totalItems}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="130" y="40" width="75" height="20" uuid="fb5e7a7a-7512-4941-93ac-d2f4129b6828"/>
+                <reportElement x="102" y="40" width="75" height="20" uuid="fb5e7a7a-7512-4941-93ac-d2f4129b6828"/>
                 <textElement textAlignment="Right" verticalAlignment="Middle">
                     <font size="7" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{totalPrice}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="130" y="60" width="75" height="20" uuid="3646c182-2142-452d-8d63-14611cf522d1"/>
+                <reportElement x="102" y="60" width="75" height="20" uuid="3646c182-2142-452d-8d63-14611cf522d1"/>
                 <textElement textAlignment="Right" verticalAlignment="Middle">
                     <font size="7"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{amount}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="130" y="80" width="76" height="20" uuid="45ceb8fc-f772-4a96-82d6-3973bc91b759"/>
+                <reportElement x="102" y="80" width="76" height="20" uuid="45ceb8fc-f772-4a96-82d6-3973bc91b759"/>
                 <textElement textAlignment="Right" verticalAlignment="Middle">
                     <font size="7"/>
                 </textElement>

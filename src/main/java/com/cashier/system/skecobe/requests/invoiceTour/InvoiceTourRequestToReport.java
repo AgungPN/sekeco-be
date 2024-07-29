@@ -16,7 +16,7 @@ import java.util.Map;
 public class InvoiceTourRequestToReport {
     private Long invoiceTourId;
     private Long tourId;
-    private Long userId;
+    private Long userId = 1L;
     private String tourName;
     private Integer unitBus;
     private Integer employee;
